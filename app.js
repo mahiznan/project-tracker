@@ -104,7 +104,7 @@ document.addEventListener("submit", e => {
   const f = e.target, n = f.n.value.trim(); if (!n) return;
   if (f.classList.contains("newtask")) {
     const t = {id: Date.now(), name: n, start: new Date().toLocaleDateString("en-CA"), end: f.d.value, subtasks: []};
-    data.tasks.unshift(t); open.add(t.id); adding = false; shown = Math.max(shown, 1);
+    data.tasks.unshift(t); open.add(t.id); adding = false; shown++;
     focus = `[data-id="${t.id}"] .subnew input`;
   } else {
     const t = find(f); t.subtasks.push({name: n, status: "pending"});
@@ -127,5 +127,5 @@ document.addEventListener("keydown", e => {
 dark.onchange = render;
 fetch("tasks.json")
   .then(r => { if (!r.ok) throw 0; return r.json(); })
-  .then(d => { if (!d || !Array.isArray(d.tasks)) throw 0; data = d; loaded = true; render(); })
+  .then(d => { if (!d || !Array.isArray(d.tasks)) throw 0; data = d; loaded = true; shown = active().length; render(); })
   .catch(() => { $("tasks").innerHTML = '<div class="empty">Could not load tasks.json</div>'; });
