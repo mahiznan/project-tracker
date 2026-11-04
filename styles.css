@@ -87,3 +87,4 @@ h1{font-size:22px;font-weight:600;letter-spacing:-.01em;margin:0}
 @media(prefers-reduced-motion:reduce){.shine{animation:none;background:none;-webkit-text-fill-color:currentColor}}
 .open>.head .capsule .jd{animation:none}
 .open>.head .capsule .shine{animation:none;background:none;-webkit-text-fill-color:currentColor}
+.tools .on{color:var(--text)}
