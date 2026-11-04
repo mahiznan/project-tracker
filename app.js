@@ -34,10 +34,10 @@ const dark = matchMedia("(prefers-color-scheme:dark)");
 const isDark = () => (document.documentElement.dataset.theme || (dark.matches ? "dark" : "light")) === "dark";
 const open = new Set();
 let shown = 1, adding = false, archOpen = false, focus = null, armed = null, sort = 0;  // sort: 0 manual, 1 status (active first), 2 status (completed first)
-const RANK = {"in-progress":0, pending:1, completed:2};
+const RANK = [null, {"in-progress":0, pending:1, completed:2}, {completed:0, "in-progress":1, pending:2}];  // by sort mode
 const active = () => {
   const a = data.tasks.filter(t => !t.archived);
-  return sort ? a.map(t => [RANK[status(t)], t]).sort((x, y) => sort === 1 ? x[0] - y[0] : y[0] - x[0]).map(x => x[1]) : a;
+  return sort ? a.map(t => [RANK[sort][status(t)], t]).sort((x, y) => x[0] - y[0]).map(x => x[1]) : a;
 };
 
 const lbl = s => `<span${s === "in-progress" ? ' class="shine"' : ""}>${LABEL[s]}</span>`;
