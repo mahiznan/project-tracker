@@ -33,8 +33,8 @@ const status = t => { const a = t.subtasks.map(s => s.status);
 const dark = matchMedia("(prefers-color-scheme:dark)");
 const isDark = () => (document.documentElement.dataset.theme || (dark.matches ? "dark" : "light")) === "dark";
 const open = new Set();
-let shown = 1, adding = false, archOpen = false, focus = null, armed = null, sort = 0;  // sort: 0 manual, 1 status (active first), 2 status (completed first)
-const RANK = [null, {"in-progress":0, pending:1, completed:2}, {completed:0, "in-progress":1, pending:2}];  // by sort mode
+let shown = 1, adding = false, archOpen = false, focus = null, armed = null, sort = 0;  // sort: 0 manual, 1 status (pending first), 2 status (completed first)
+const RANK = [null, {pending:0, "in-progress":1, completed:2}, {completed:0, "in-progress":1, pending:2}];  // by sort mode
 const active = () => {
   const a = data.tasks.filter(t => !t.archived);
   return sort ? a.map(t => [RANK[sort][status(t)], t]).sort((x, y) => x[0] - y[0]).map(x => x[1]) : a;
@@ -69,7 +69,7 @@ function render() {
   $("all").innerHTML = allOpen ? I.none : I.all; $("all").title = allOpen ? "Collapse all" : "Show all";
   $("theme").innerHTML = isDark() ? I.sun : I.moon; $("theme").title = isDark() ? "Light theme" : "Dark theme";
   $("sort").innerHTML = I["sort" + sort]; $("sort").classList.toggle("on", !!sort);
-  $("sort").title = ["Sort by status", "Sorted: In progress first (click to reverse)", "Sorted: Completed first (click for manual order)"][sort];
+  $("sort").title = ["Sort by status", "Sorted: Pending first (click to reverse)", "Sorted: Completed first (click for manual order)"][sort];
   $("more").innerHTML = I.more; $("more").hidden = full;
   if (focus) { document.querySelector(focus)?.focus(); focus = null; }
 }
