@@ -63,7 +63,7 @@ h1{font-size:22px;font-weight:600;letter-spacing:-.01em;margin:0}
 .newtask input[name=n]{flex:1;font-weight:550}
 .newtask input[name=d]{font-size:13px;color:var(--muted)}
 
-.more{display:block;position:relative;margin:-9px auto 0;width:30px;height:18px;background:var(--bg);color:var(--pend);line-height:0}
+.more{display:flex;align-items:center;justify-content:center;position:relative;margin:-9px auto 0;width:16px;height:18px;background:var(--bg);color:var(--pend);line-height:0}
 .more:hover{color:var(--text)}
 .more[hidden]{display:none}
 
