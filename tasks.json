@@ -8,6 +8,14 @@
       "subtasks": [
         {
           "name": "Second Task",
+          "status": "completed"
+        },
+        {
+          "name": "Third Task",
+          "status": "in-progress"
+        },
+        {
+          "name": "Fourth Task",
           "status": "in-progress"
         }
       ],
@@ -25,7 +33,7 @@
         },
         {
           "name": "Second Task",
-          "status": "in-progress"
+          "status": "completed"
         },
         {
           "name": "Third Task",

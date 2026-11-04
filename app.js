@@ -17,6 +17,7 @@ const I = {
   moon: svg('<path d="M13 9.5A5.5 5.5 0 1 1 6.5 3a4.5 4.5 0 0 0 6.5 6.5z"/>'),
   sun: svg('<circle cx="8" cy="8" r="2.8"/><path d="M8 1.8v1.4M8 12.8v1.4M1.8 8h1.4M12.8 8h1.4M3.6 3.6l1 1M11.4 11.4l1 1M3.6 12.4l1-1M11.4 4.6l1-1"/>'),
   chev: svg('<path d="M6 4l4 4-4 4"/>', 12),
+  up: svg('<path d="M4.5 10 8 6.5l3.5 3.5"/>'), down: svg('<path d="M4.5 6 8 9.5 11.5 6"/>'),
   archive: svg('<path d="M2.5 3.5h11v2.5h-11zM3.5 6v7h9V6M8 7.8v3.2M6.4 9.6 8 11.2l1.6-1.6"/>'),
   restore: svg('<path d="M2.5 3.5h11v2.5h-11zM3.5 6v7h9V6M8 11V7.8M6.4 9.4 8 7.8l1.6 1.6"/>'),
   trash: svg('<path d="M3 4.5h10M6.5 4.5V3h3v1.5M4.5 4.5l.6 8.5h5.8l.6-8.5M7 7v3.5M9 7v3.5"/>', 14)
@@ -36,14 +37,14 @@ const lbl = s => `<span${s === "in-progress" ? ' class="shine"' : ""}>${LABEL[s]
 const btn = (cls, a, icon, label, i, on) => `<button class="${cls}${on?" armed":""}" data-a="${a}"${i==null?"":` data-i="${i}"`} title="${on?"Click again to delete":label}" aria-label="${label}">${icon}</button>`;
 
 const taskHTML = t => {
-  const st = status(t), o = open.has(t.id);
+  const st = status(t), o = open.has(t.id), A = active(), i = A.indexOf(t);
   return `<article class="task${o?" open":""}" data-id="${t.id}">
     <button class="head" data-a="toggle"><i class="plus"></i>
       <div class="info"><div class="title">${esc(t.name)}</div>${o?`<div class="dates">ETA: ${fmt(t.end)}</div>`:""}</div>
       <span class="capsule ${st}">${ICON[st]}${lbl(st)}</span></button>
     ${o?`<div class="subs">${t.subtasks.map((s,i)=>`<div class="sub ${s.status}"><button class="cyc" data-a="cycle" data-i="${i}"><span class="label">${esc(s.name)}</span><span class="stat">${ICON[s.status]}${lbl(s.status)}</span></button>${btn("del","delsub",I.trash,"Delete subtask",i,armed===`s:${t.id}:${i}`)}</div>`).join("")}
       <form class="subnew"><input name="n" placeholder="Add subtask" autocomplete="off" required></form>
-      <div class="acts">${btn("act","archive",t.archived?I.restore:I.archive,t.archived?"Restore":"Archive")}${btn("act","deltask",I.trash,"Delete task",null,armed===`t:${t.id}`)}</div></div>`:""}
+      <div class="acts">${i > 0 ? btn("act","up",I.up,"Move up") : ""}${i >= 0 && i < A.length - 1 ? btn("act","down",I.down,"Move down") : ""}${btn("act","archive",t.archived?I.restore:I.archive,t.archived?"Restore":"Archive")}${btn("act","deltask",I.trash,"Delete task",null,armed===`t:${t.id}`)}</div></div>`:""}
   </article>`;
 };
 
@@ -89,6 +90,10 @@ document.addEventListener("click", e => {
   else if (a === "archive") { t.archived = !t.archived; open.delete(t.id); save(); }
   else if (a === "deltask") { if (was === `t:${t.id}`) { data.tasks = data.tasks.filter(x => x !== t); open.delete(t.id); save(); } else armed = `t:${t.id}`; }
   else if (a === "delsub") { const k = `s:${t.id}:${b.dataset.i}`; if (was === k) { t.subtasks.splice(b.dataset.i, 1); save(); } else armed = k; }
+  else if (a === "up" || a === "down") {
+    const A = active(), o = A[A.indexOf(t) + (a === "up" ? -1 : 1)];
+    if (o) { const x = data.tasks.indexOf(t), y = data.tasks.indexOf(o); [data.tasks[x], data.tasks[y]] = [o, t]; focus = `[data-id="${t.id}"] [data-a="${a}"]`; save(); }
+  }
   else if (a === "more") shown++;
   else if (a === "list") { shown = shown >= active().length ? 1 : active().length; open.clear(); }
   else if (a === "all") { const T = active(), every = shown >= T.length && T.every(x => open.has(x.id));
