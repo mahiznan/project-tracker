@@ -68,8 +68,8 @@ h1{font-size:22px;font-weight:600;letter-spacing:-.01em;margin:0}
 .more[hidden]{display:none}
 
 .arch{margin-top:48px}
-.arch-head{display:flex;align-items:center;gap:6px;padding-bottom:10px;font-size:13px;font-weight:550;color:var(--muted)}
-.arch-head:hover{color:var(--text)}
+.arch-head{display:flex;align-items:center;gap:6px;padding-bottom:10px;font-size:12px;font-weight:400;color:var(--pend)}
+.arch-head:hover{color:var(--muted)}
 .arch-head svg{transition:transform .15s}
 .arch.open .arch-head svg{transform:rotate(90deg)}
 .arch-head span{font-weight:400}
