@@ -16,7 +16,10 @@ const I = {
   one: svg('<path d="M3 8h10"/>'), more: svg('<path d="M2.5 2.5 6 6l3.5-3.5M2.5 6.5 6 10l3.5-3.5"/>', 12),
   moon: svg('<path d="M13 9.5A5.5 5.5 0 1 1 6.5 3a4.5 4.5 0 0 0 6.5 6.5z"/>'),
   sun: svg('<circle cx="8" cy="8" r="2.8"/><path d="M8 1.8v1.4M8 12.8v1.4M1.8 8h1.4M12.8 8h1.4M3.6 3.6l1 1M11.4 11.4l1 1M3.6 12.4l1-1M11.4 4.6l1-1"/>'),
-  chev: svg('<path d="M6 4l4 4-4 4"/>', 12)
+  chev: svg('<path d="M6 4l4 4-4 4"/>', 12),
+  archive: svg('<path d="M2.5 3.5h11v2.5h-11zM3.5 6v7h9V6M8 7.8v3.2M6.4 9.6 8 11.2l1.6-1.6"/>'),
+  restore: svg('<path d="M2.5 3.5h11v2.5h-11zM3.5 6v7h9V6M8 11V7.8M6.4 9.4 8 7.8l1.6 1.6"/>'),
+  trash: svg('<path d="M3 4.5h10M6.5 4.5V3h3v1.5M4.5 4.5l.6 8.5h5.8l.6-8.5M7 7v3.5M9 7v3.5"/>', 14)
 };
 const esc = s => s.replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 const fmt = d => new Date(d).toLocaleDateString("en-GB",{day:"numeric",month:"short",year:"numeric",timeZone:"UTC"});
@@ -26,8 +29,10 @@ const status = t => { const a = t.subtasks.map(s => s.status);
 const dark = matchMedia("(prefers-color-scheme:dark)");
 const isDark = () => (document.documentElement.dataset.theme || (dark.matches ? "dark" : "light")) === "dark";
 const open = new Set();
-let shown = 1, adding = false, archOpen = false, focus = null;
+let shown = 1, adding = false, archOpen = false, focus = null, armed = null;
 const active = () => data.tasks.filter(t => !t.archived);
+
+const btn = (cls, a, icon, label, i, on) => `<button class="${cls}${on?" armed":""}" data-a="${a}"${i==null?"":` data-i="${i}"`} title="${on?"Click again to delete":label}" aria-label="${label}">${icon}</button>`;
 
 const taskHTML = t => {
   const st = status(t), o = open.has(t.id);
@@ -35,9 +40,9 @@ const taskHTML = t => {
     <button class="head" data-a="toggle"><i class="plus"></i>
       <div class="info"><div class="title">${esc(t.name)}</div>${o?`<div class="dates">ETA: ${fmt(t.end)}</div>`:""}</div>
       <span class="capsule ${st}">${ICON[st]}${LABEL[st]}</span></button>
-    ${o?`<div class="subs">${t.subtasks.map((s,i)=>`<button class="sub ${s.status}" data-a="cycle" data-i="${i}"><span class="label">${esc(s.name)}</span><span class="stat">${ICON[s.status]}${LABEL[s.status]}</span></button>`).join("")}
+    ${o?`<div class="subs">${t.subtasks.map((s,i)=>`<div class="sub ${s.status}"><button class="cyc" data-a="cycle" data-i="${i}"><span class="label">${esc(s.name)}</span><span class="stat">${ICON[s.status]}${LABEL[s.status]}</span></button>${btn("del","delsub",I.trash,"Delete subtask",i,armed===`s:${t.id}:${i}`)}</div>`).join("")}
       <form class="subnew"><input name="n" placeholder="Add subtask" autocomplete="off" required></form>
-      <button class="act" data-a="archive">${t.archived?"Restore":"Archive"}</button></div>`:""}
+      <div class="acts">${btn("act","archive",t.archived?I.restore:I.archive,t.archived?"Restore":"Archive")}${btn("act","deltask",I.trash,"Delete task",null,armed===`t:${t.id}`)}</div></div>`:""}
   </article>`;
 };
 
@@ -75,11 +80,14 @@ const find = el => data.tasks.find(t => t.id == el.closest(".task")?.dataset.id)
 
 document.addEventListener("click", e => {
   if (!loaded) return;
-  const b = e.target.closest("[data-a]"); if (!b) return;
+  const was = armed; armed = null;
+  const b = e.target.closest("[data-a]"); if (!b) { if (was) render(); return; }
   const t = find(b), a = b.dataset.a;
   if (a === "toggle") open.has(t.id) ? open.delete(t.id) : open.add(t.id);
   else if (a === "cycle") { t.subtasks[b.dataset.i].status = NEXT[t.subtasks[b.dataset.i].status]; save(); }
   else if (a === "archive") { t.archived = !t.archived; open.delete(t.id); save(); }
+  else if (a === "deltask") { if (was === `t:${t.id}`) { data.tasks = data.tasks.filter(x => x !== t); open.delete(t.id); save(); } else armed = `t:${t.id}`; }
+  else if (a === "delsub") { const k = `s:${t.id}:${b.dataset.i}`; if (was === k) { t.subtasks.splice(b.dataset.i, 1); save(); } else armed = k; }
   else if (a === "more") shown++;
   else if (a === "list") { shown = shown >= active().length ? 1 : active().length; open.clear(); }
   else if (a === "all") { const T = active(), every = shown >= T.length && T.every(x => open.has(x.id));

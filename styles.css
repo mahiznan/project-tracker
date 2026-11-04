@@ -43,13 +43,19 @@ h1{font-size:22px;font-weight:600;letter-spacing:-.01em;margin:0}
 .capsule.pending{color:var(--c-pend);background:var(--c-pend-bg)}
 
 .subs{padding:0 0 10px 30px}
-.sub{display:flex;align-items:center;gap:12px;width:100%;padding:4px 0}
-.sub .label{flex:1;font-size:13px}
+.sub{position:relative;display:flex;width:100%}
+.cyc{display:flex;align-items:center;gap:12px;flex:1;min-width:0;padding:4px 0}
+.cyc .label{flex:1;font-size:13px}
 .sub.completed .label{color:var(--muted)}
+.del{position:absolute;right:-24px;top:50%;transform:translateY(-50%);padding:3px;line-height:0;color:var(--muted);opacity:0}
+.sub:hover .del,.del:focus-visible,.del.armed{opacity:1}
+@media(hover:none){.del{opacity:.6}}
+.del:hover,.act:hover{color:var(--text)}
+.del.armed,.act.armed,.del.armed:hover,.act.armed:hover{color:light-dark(#d93025,#f87171)}
 .subnew input{width:100%;font-size:13px;margin-top:4px;border-color:transparent}
 .subnew input:focus{border-color:var(--prog)}
-.act{display:block;margin:4px 0 0 auto;color:var(--muted);font-size:12px;padding:2px 0}
-.act:hover{color:var(--text)}
+.acts{display:flex;justify-content:flex-end;gap:4px;margin-top:4px}
+.act{color:var(--muted);padding:4px;line-height:0}
 
 .newtask{display:flex;align-items:center;gap:12px;padding:10px 0;border-top:1px solid var(--line)}
 .newtask input[name=n]{flex:1;font-weight:550}
