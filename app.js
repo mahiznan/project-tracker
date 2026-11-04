@@ -7,7 +7,7 @@ const svg = (d, s=16) => `<svg width="${s}" height="${s}" viewBox="0 0 16 16" fi
 const ring = '<circle cx="8" cy="8" r="7.25" stroke="currentColor" stroke-width="1.5"/>';
 const ICON = {
   completed: '<svg viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7.25" fill="currentColor"/><path d="M5 8.3l2.2 2.2L11 6" style="stroke:var(--tick)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>',
-  "in-progress": `<svg viewBox="0 0 16 16" fill="none">${ring}<g fill="currentColor"><circle cx="4.9" cy="8" r="1.05"/><circle cx="8" cy="8" r="1.05"/><circle cx="11.1" cy="8" r="1.05"/></g></svg>`,
+  "in-progress": `<svg viewBox="0 0 16 16" fill="none">${ring}<g fill="currentColor"><circle class="jd" cx="4.9" cy="8" r="1.05"/><circle class="jd" cx="8" cy="8" r="1.05"/><circle class="jd" cx="11.1" cy="8" r="1.05"/></g></svg>`,
   pending: `<svg viewBox="0 0 16 16" fill="none">${ring}<path d="M8 4.6V8l2.3 1.4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>`
 };
 const I = {
