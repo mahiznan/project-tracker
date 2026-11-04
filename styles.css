@@ -1,8 +1,8 @@
 :root{color-scheme:light dark;
   --bg:light-dark(#fff,#111112);--text:light-dark(#111,#ececec);--sub:light-dark(#555,#b5b5b5);--muted:light-dark(#8a8a8a,#8a8a8f);
-  --line:light-dark(#ececec,#272729);--done:light-dark(#1f9d55,#4cc38a);--prog:light-dark(#2563eb,#6ea1f7);--pend:light-dark(#b5b5b5,#5d5d62);
+  --line:light-dark(#ececec,#272729);--done:light-dark(#1f9d55,#4cc38a);--prog:light-dark(#2563eb,#6ea1f7);--pend:light-dark(#b5b5b5,#5d5d62);--warn:light-dark(#ea7c0c,#fb9a3c);
   --c-done:light-dark(#15803d,#6fd3a0);--c-done-bg:light-dark(#e6f5ec,#16291f);--c-prog:light-dark(#1d4ed8,#8db6fa);--c-prog-bg:light-dark(#e8effd,#16213a);
-  --c-pend:light-dark(#6b6b6b,#a0a0a6);--c-pend-bg:light-dark(#f1f1f1,#242426);--tick:light-dark(#fff,#111112)}
+  --c-pend:light-dark(#b45309,#fdba74);--c-pend-bg:light-dark(#fff1e0,#33210f);--tick:light-dark(#fff,#111112)}
 :root[data-theme=light]{color-scheme:light}
 :root[data-theme=dark]{color-scheme:dark}
 *{box-sizing:border-box}
@@ -37,7 +37,7 @@ h1{font-size:22px;font-weight:600;letter-spacing:-.01em;margin:0}
 .capsule{margin-top:-2px;padding-top:3px;padding-bottom:3px;border-radius:999px;font-size:12px}
 .stat{font-size:11.5px;color:var(--c)}
 .capsule svg,.stat svg{width:14px;height:14px;flex-shrink:0}
-.completed{--c:var(--done)}.in-progress{--c:var(--prog)}.pending{--c:var(--pend)}
+.completed{--c:var(--done)}.in-progress{--c:var(--prog)}.pending{--c:var(--warn)}
 .capsule.completed{color:var(--c-done);background:var(--c-done-bg)}
 .capsule.in-progress{color:var(--c-prog);background:var(--c-prog-bg)}
 .capsule.pending{color:var(--c-pend);background:var(--c-pend-bg)}
