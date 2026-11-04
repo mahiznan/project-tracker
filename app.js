@@ -32,6 +32,7 @@ const open = new Set();
 let shown = 1, adding = false, archOpen = false, focus = null, armed = null;
 const active = () => data.tasks.filter(t => !t.archived);
 
+const lbl = s => `<span${s === "in-progress" ? ' class="shine"' : ""}>${LABEL[s]}</span>`;
 const btn = (cls, a, icon, label, i, on) => `<button class="${cls}${on?" armed":""}" data-a="${a}"${i==null?"":` data-i="${i}"`} title="${on?"Click again to delete":label}" aria-label="${label}">${icon}</button>`;
 
 const taskHTML = t => {
@@ -39,8 +40,8 @@ const taskHTML = t => {
   return `<article class="task${o?" open":""}" data-id="${t.id}">
     <button class="head" data-a="toggle"><i class="plus"></i>
       <div class="info"><div class="title">${esc(t.name)}</div>${o?`<div class="dates">ETA: ${fmt(t.end)}</div>`:""}</div>
-      <span class="capsule ${st}">${ICON[st]}${LABEL[st]}</span></button>
-    ${o?`<div class="subs">${t.subtasks.map((s,i)=>`<div class="sub ${s.status}"><button class="cyc" data-a="cycle" data-i="${i}"><span class="label">${esc(s.name)}</span><span class="stat">${ICON[s.status]}${LABEL[s.status]}</span></button>${btn("del","delsub",I.trash,"Delete subtask",i,armed===`s:${t.id}:${i}`)}</div>`).join("")}
+      <span class="capsule ${st}">${ICON[st]}${lbl(st)}</span></button>
+    ${o?`<div class="subs">${t.subtasks.map((s,i)=>`<div class="sub ${s.status}"><button class="cyc" data-a="cycle" data-i="${i}"><span class="label">${esc(s.name)}</span><span class="stat">${ICON[s.status]}${lbl(s.status)}</span></button>${btn("del","delsub",I.trash,"Delete subtask",i,armed===`s:${t.id}:${i}`)}</div>`).join("")}
       <form class="subnew"><input name="n" placeholder="Add subtask" autocomplete="off" required></form>
       <div class="acts">${btn("act","archive",t.archived?I.restore:I.archive,t.archived?"Restore":"Archive")}${btn("act","deltask",I.trash,"Delete task",null,armed===`t:${t.id}`)}</div></div>`:""}
   </article>`;
