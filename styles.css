@@ -52,7 +52,9 @@ h1{font-size:22px;font-weight:600;letter-spacing:-.01em;margin:0}
 @media(hover:none){.del{opacity:.6}}
 .del:hover,.act:hover{color:var(--text)}
 .del.armed,.act.armed,.del.armed:hover,.act.armed:hover{color:light-dark(#d93025,#f87171)}
-.subnew input{width:100%;font-size:13px;margin-top:4px;border-color:transparent}
+.subnew{opacity:.4;transition:opacity .15s}
+.subnew:hover,.subnew:focus-within{opacity:1}
+.subnew input{width:100%;font-size:12px;margin-top:4px;border-color:transparent}
 .subnew input:focus{border-color:var(--prog)}
 .acts{display:flex;justify-content:flex-end;gap:4px;margin-top:4px}
 .act{color:var(--muted);padding:4px;line-height:0}
