@@ -1,4 +1,4 @@
-let data = { tasks: [] };
+let data = { tasks: [] }, loaded = false;
 
 const $ = id => document.getElementById(id);
 const LABEL = {completed:"Completed","in-progress":"In progress",pending:"Pending"};
@@ -19,7 +19,7 @@ const I = {
   chev: svg('<path d="M6 4l4 4-4 4"/>', 12)
 };
 const esc = s => s.replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
-const fmt = d => new Date(d).toLocaleDateString("en-GB",{day:"numeric",month:"short",year:"numeric"});
+const fmt = d => new Date(d).toLocaleDateString("en-GB",{day:"numeric",month:"short",year:"numeric",timeZone:"UTC"});
 const status = t => { const a = t.subtasks.map(s => s.status);
   return !a.length || a.every(x => x==="pending") ? "pending" : a.every(x => x==="completed") ? "completed" : "in-progress"; };
 
@@ -60,6 +60,7 @@ function render() {
 
 let saveTimer;
 function save() {
+  if (!loaded) return;
   clearTimeout(saveTimer);
   saveTimer = setTimeout(async () => {
     let failed;
@@ -73,6 +74,7 @@ function save() {
 const find = el => data.tasks.find(t => t.id == el.closest(".task")?.dataset.id);
 
 document.addEventListener("click", e => {
+  if (!loaded) return;
   const b = e.target.closest("[data-a]"); if (!b) return;
   const t = find(b), a = b.dataset.a;
   if (a === "toggle") open.has(t.id) ? open.delete(t.id) : open.add(t.id);
@@ -90,9 +92,10 @@ document.addEventListener("click", e => {
 
 document.addEventListener("submit", e => {
   e.preventDefault();
+  if (!loaded) return;
   const f = e.target, n = f.n.value.trim(); if (!n) return;
   if (f.classList.contains("newtask")) {
-    const t = {id: Date.now(), name: n, start: new Date().toISOString().slice(0,10), end: f.d.value, subtasks: []};
+    const t = {id: Date.now(), name: n, start: new Date().toLocaleDateString("en-CA"), end: f.d.value, subtasks: []};
     data.tasks.unshift(t); open.add(t.id); adding = false; shown = Math.max(shown, 1);
     focus = `[data-id="${t.id}"] .subnew input`;
   } else {
@@ -103,9 +106,12 @@ document.addEventListener("submit", e => {
   render();
 });
 
-document.addEventListener("keydown", e => { if (e.key === "Escape" && adding) { adding = false; render(); } });
+document.addEventListener("keydown", e => {
+  if (e.key === "Escape" && adding) { adding = false; render(); }
+  else if (e.key === "Enter" && e.target.closest?.(".newtask")) { e.preventDefault(); e.target.form.requestSubmit(); }
+});
 dark.onchange = render;
 fetch("tasks.json")
   .then(r => { if (!r.ok) throw 0; return r.json(); })
-  .then(d => { data = d; render(); })
+  .then(d => { if (!d || !Array.isArray(d.tasks)) throw 0; data = d; loaded = true; render(); })
   .catch(() => { $("tasks").innerHTML = '<div class="empty">Could not load tasks.json</div>'; });

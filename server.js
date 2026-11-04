@@ -21,25 +21,34 @@ function createServer(dataFile) {
       catch { return send(res, 400, "Invalid JSON"); }
       if (!doc || typeof doc !== "object" || !Array.isArray(doc.tasks)) return send(res, 400, "Expected { tasks: [] }");
       const tmp = dataFile + ".tmp";
-      fs.writeFileSync(tmp, JSON.stringify(doc, null, 2) + "\n");
-      fs.renameSync(tmp, dataFile);
+      try {
+        fs.writeFileSync(tmp, JSON.stringify(doc, null, 2) + "\n");
+        fs.renameSync(tmp, dataFile);
+      } catch {
+        try { fs.unlinkSync(tmp); } catch {}
+        return send(res, 500, "Write failed");
+      }
       send(res, 204);
     });
   }
 
   return http.createServer((req, res) => {
-    const url = req.url.split("?")[0];
-    if (url === "/tasks.json") {
-      if (req.method === "GET") {
-        if (!fs.existsSync(dataFile)) fs.writeFileSync(dataFile, '{"tasks":[]}\n');
-        return send(res, 200, fs.readFileSync(dataFile), TYPES[".json"]);
+    try {
+      const url = req.url.split("?")[0];
+      if (url === "/tasks.json") {
+        if (req.method === "GET") {
+          if (!fs.existsSync(dataFile)) fs.writeFileSync(dataFile, '{"tasks":[]}\n');
+          return send(res, 200, fs.readFileSync(dataFile), TYPES[".json"]);
+        }
+        return req.method === "PUT" ? put(req, res) : send(res, 405, "Method Not Allowed");
       }
-      return req.method === "PUT" ? put(req, res) : send(res, 405, "Method Not Allowed");
+      const name = FILES[url];
+      if (!name) return send(res, 404, "Not Found");
+      if (req.method !== "GET") return send(res, 405, "Method Not Allowed");
+      send(res, 200, fs.readFileSync(path.join(__dirname, name)), TYPES[path.extname(name)]);
+    } catch {
+      if (!res.headersSent) send(res, 500, "Server Error");
     }
-    const name = FILES[url];
-    if (!name) return send(res, 404, "Not Found");
-    if (req.method !== "GET") return send(res, 405, "Method Not Allowed");
-    send(res, 200, fs.readFileSync(path.join(__dirname, name)), TYPES[path.extname(name)]);
   });
 }
 

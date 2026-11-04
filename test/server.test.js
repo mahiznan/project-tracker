@@ -64,3 +64,14 @@ test("serves the app shell and assets", async () => {
     assert.ok(res.headers.get("content-type").startsWith(type), p);
   }
 });
+
+test("PUT returns 500 (no crash) when the data directory is missing", async () => {
+  const bad = createServer(path.join(os.tmpdir(), "pt-missing-dir-" + Date.now(), "tasks.json"));
+  await new Promise(r => bad.listen(0, "127.0.0.1", r));
+  const b = `http://127.0.0.1:${bad.address().port}`;
+  try {
+    const res = await fetch(b + "/tasks.json", { method: "PUT", body: JSON.stringify({ tasks: [] }) });
+    assert.equal(res.status, 500);
+    assert.equal((await fetch(b + "/nope")).status, 404);
+  } finally { bad.close(); }
+});
