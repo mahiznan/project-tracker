@@ -8,7 +8,7 @@
       "subtasks": [
         {
           "name": "Second Task",
-          "status": "completed"
+          "status": "in-progress"
         }
       ],
       "archived": false
@@ -25,7 +25,7 @@
         },
         {
           "name": "Second Task",
-          "status": "pending"
+          "status": "in-progress"
         },
         {
           "name": "Third Task",

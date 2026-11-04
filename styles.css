@@ -85,3 +85,5 @@ h1{font-size:22px;font-weight:600;letter-spacing:-.01em;margin:0}
 @keyframes shine{from{background-position:100% 0}to{background-position:-100% 0}}
 .shine{background:linear-gradient(90deg,currentColor 40%,color-mix(in srgb,currentColor 30%,transparent) 50%,currentColor 60%) 0 0/250% 100%;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:shine 2.2s linear infinite}
 @media(prefers-reduced-motion:reduce){.shine{animation:none;background:none;-webkit-text-fill-color:currentColor}}
+.open>.head .capsule .jd{animation:none}
+.open>.head .capsule .shine{animation:none;background:none;-webkit-text-fill-color:currentColor}
