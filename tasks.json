@@ -25,14 +25,14 @@
         },
         {
           "name": "Second Task",
-          "status": "completed"
+          "status": "pending"
         },
         {
           "name": "Third Task",
           "status": "completed"
         }
       ],
-      "archived": true
+      "archived": false
     }
   ]
 }
