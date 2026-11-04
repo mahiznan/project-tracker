@@ -56,3 +56,11 @@ test("unknown paths are 404", async () => {
 test("wrong method on tasks.json is 405", async () => {
   assert.equal((await fetch(base + "/tasks.json", { method: "DELETE" })).status, 405);
 });
+
+test("serves the app shell and assets", async () => {
+  for (const [p, type] of [["/", "text/html"], ["/styles.css", "text/css"], ["/app.js", "text/javascript"]]) {
+    const res = await fetch(base + p);
+    assert.equal(res.status, 200, p);
+    assert.ok(res.headers.get("content-type").startsWith(type), p);
+  }
+});

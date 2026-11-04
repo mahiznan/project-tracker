@@ -1,0 +1,71 @@
+:root{color-scheme:light dark;
+  --bg:light-dark(#fff,#111112);--text:light-dark(#111,#ececec);--sub:light-dark(#555,#b5b5b5);--muted:light-dark(#8a8a8a,#8a8a8f);
+  --line:light-dark(#ececec,#272729);--done:light-dark(#1f9d55,#4cc38a);--prog:light-dark(#2563eb,#6ea1f7);--pend:light-dark(#b5b5b5,#5d5d62);
+  --c-done:light-dark(#15803d,#6fd3a0);--c-done-bg:light-dark(#e6f5ec,#16291f);--c-prog:light-dark(#1d4ed8,#8db6fa);--c-prog-bg:light-dark(#e8effd,#16213a);
+  --c-pend:light-dark(#6b6b6b,#a0a0a6);--c-pend-bg:light-dark(#f1f1f1,#242426);--tick:light-dark(#fff,#111112)}
+:root[data-theme=light]{color-scheme:light}
+:root[data-theme=dark]{color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font:15px/1.5 -apple-system,BlinkMacSystemFont,"Inter","Segoe UI",sans-serif}
+main{max-width:680px;margin:0 auto;padding:48px 24px 64px}
+button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer;text-align:left}
+input{font:inherit;color:inherit;background:none;border:0;border-bottom:1px solid var(--line);outline:0;padding:2px 0}
+input:focus{border-color:var(--prog)}
+::placeholder{color:var(--pend)}
+
+.top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:20px}
+h1{font-size:22px;font-weight:600;letter-spacing:-.01em;margin:0}
+.tools{display:flex;gap:2px}
+.tools button{color:var(--muted);padding:4px;line-height:0}
+.tools button:hover{color:var(--text)}
+
+.task{border-top:1px solid var(--line)}
+.task:last-child{border-bottom:1px solid var(--line)}
+.head{display:flex;align-items:flex-start;gap:12px;width:100%;padding:10px 0}
+.info{flex:1;min-width:0}
+.title{font-size:15px;line-height:1.3;font-weight:550}
+.dates{font-size:12.5px;color:var(--muted)}
+.head:hover .title{text-decoration:underline;text-decoration-color:var(--line);text-underline-offset:4px}
+
+.plus{width:18px;height:18px;border-radius:50%;border:1.5px solid var(--pend);position:relative;flex-shrink:0;margin-top:1px}
+.plus::before,.plus::after{content:"";position:absolute;left:50%;top:50%;background:var(--muted);transform:translate(-50%,-50%)}
+.plus::before{width:8px;height:1.5px}.plus::after{width:1.5px;height:8px}
+.open .plus::after{display:none}
+.head:hover .plus{border-color:var(--text)}
+
+.capsule,.stat{display:flex;align-items:center;gap:7px;width:120px;flex-shrink:0;padding-left:12px;font-weight:550}
+.capsule{margin-top:-2px;padding-top:3px;padding-bottom:3px;border-radius:999px;font-size:12px}
+.stat{font-size:11.5px;color:var(--c)}
+.capsule svg,.stat svg{width:14px;height:14px;flex-shrink:0}
+.completed{--c:var(--done)}.in-progress{--c:var(--prog)}.pending{--c:var(--pend)}
+.capsule.completed{color:var(--c-done);background:var(--c-done-bg)}
+.capsule.in-progress{color:var(--c-prog);background:var(--c-prog-bg)}
+.capsule.pending{color:var(--c-pend);background:var(--c-pend-bg)}
+
+.subs{padding:0 0 10px 30px}
+.sub{display:flex;align-items:center;gap:12px;width:100%;padding:4px 0}
+.sub .label{flex:1;font-size:13px}
+.sub.completed .label{color:var(--muted)}
+.subnew input{width:100%;font-size:13px;margin-top:4px;border-color:transparent}
+.subnew input:focus{border-color:var(--prog)}
+.act{display:block;margin:4px 0 0 auto;color:var(--muted);font-size:12px;padding:2px 0}
+.act:hover{color:var(--text)}
+
+.newtask{display:flex;align-items:center;gap:12px;padding:10px 0;border-top:1px solid var(--line)}
+.newtask input[name=n]{flex:1;font-weight:550}
+.newtask input[name=d]{font-size:13px;color:var(--muted)}
+
+.more{display:block;position:relative;margin:-9px auto 0;width:30px;height:18px;background:var(--bg);color:var(--pend);line-height:0}
+.more:hover{color:var(--text)}
+.more[hidden]{display:none}
+
+.arch{margin-top:48px}
+.arch-head{display:flex;align-items:center;gap:6px;padding-bottom:10px;font-size:13px;font-weight:550;color:var(--muted)}
+.arch-head:hover{color:var(--text)}
+.arch-head svg{transition:transform .15s}
+.arch.open .arch-head svg{transform:rotate(90deg)}
+.arch-head span{font-weight:400}
+.arch .title{color:var(--sub)}
+.empty{color:var(--pend);font-size:13px}
+@media(max-width:520px){main{padding-top:40px}}
+.note{font-size:12px;font-weight:500;color:light-dark(#c2410c,#fb923c);margin-left:8px}

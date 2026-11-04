@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tasks &amp; Progress</title>
+<script>try{const t=localStorage.theme;if(t)document.documentElement.dataset.theme=t}catch{}</script>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<main>
+  <div class="top"><h1>Tasks &amp; Progress <small class="note" id="note" hidden>Not saved</small></h1>
+    <div class="tools">
+      <button data-a="add" id="add" title="New task" aria-label="New task"></button>
+      <button data-a="list" id="list" ></button>
+      <button data-a="all" id="all"></button>
+      <button data-a="theme" id="theme"></button>
+    </div>
+  </div>
+  <section id="tasks"></section>
+  <button class="more" data-a="more" id="more" aria-label="Show next task"></button>
+  <section class="arch" id="arch">
+    <button class="arch-head" data-a="arch"></button>
+    <div id="archived"></div>
+  </section>
+</main>
+
+<script src="app.js"></script>
+</body>
+</html>

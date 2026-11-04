@@ -1,0 +1,16 @@
+{
+  "tasks": [
+    { "id": 1, "name": "Payments API migration", "start": "2026-10-12", "end": "2026-11-20", "subtasks": [
+      { "name": "Audit existing endpoints", "status": "completed" },
+      { "name": "Design new schema", "status": "completed" },
+      { "name": "Implement v2 endpoints", "status": "in-progress" },
+      { "name": "Load testing", "status": "pending" } ] },
+    { "id": 2, "name": "Onboarding flow redesign", "start": "2026-10-01", "end": "2026-10-30", "subtasks": [
+      { "name": "User interviews", "status": "completed" },
+      { "name": "Build steps 1–3", "status": "in-progress" },
+      { "name": "A/B test setup", "status": "pending" } ] },
+    { "id": 3, "name": "CI pipeline speed-up", "archived": true, "start": "2026-09-15", "end": "2026-10-15", "subtasks": [
+      { "name": "Enable build caching", "status": "completed" },
+      { "name": "Parallelise test suites", "status": "completed" } ] }
+  ]
+}
