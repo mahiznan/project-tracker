@@ -1,0 +1,1190 @@
+{
+  "tasks": [
+    {
+      "id": 1700000000000,
+      "name": "Payments API migration",
+      "start": "2026-01-03",
+      "end": "2027-03-21",
+      "subtasks": [
+        {
+          "name": "Performance pass",
+          "status": "pending"
+        },
+        {
+          "name": "Monitor metrics",
+          "status": "pending"
+        },
+        {
+          "name": "Write design doc",
+          "status": "pending"
+        },
+        {
+          "name": "Update docs",
+          "status": "pending"
+        }
+      ]
+    },
+    {
+      "id": 1700000000001,
+      "name": "Onboarding flow redesign",
+      "start": "2026-01-02",
+      "end": "2026-01-02",
+      "subtasks": [
+        {
+          "name": "Dry run in staging",
+          "status": "in-progress"
+        },
+        {
+          "name": "Write design doc",
+          "status": "in-progress"
+        },
+        {
+          "name": "Implement core",
+          "status": "in-progress"
+        },
+        {
+          "name": "Fix review comments",
+          "status": "in-progress"
+        },
+        {
+          "name": "Monitor metrics",
+          "status": "in-progress"
+        },
+        {
+          "name": "Performance pass",
+          "status": "in-progress"
+        }
+      ]
+    },
+    {
+      "id": 1700000000002,
+      "name": "CI pipeline speed-up",
+      "start": "2026-01-19",
+      "end": "2026-10-08",
+      "subtasks": [
+        {
+          "name": "Roll out to 100%",
+          "status": "completed"
+        },
+        {
+          "name": "Dry run in staging",
+          "status": "completed"
+        }
+      ]
+    },
+    {
+      "id": 1700000000003,
+      "name": "Q4 observability dashboards",
+      "start": "2026-03-10",
+      "end": "2026-04-18",
+      "subtasks": [
+        {
+          "name": "Dry run in staging",
+          "status": "completed"
+        },
+        {
+          "name": "Review with team",
+          "status": "pending"
+        }
+      ]
+    },
+    {
+      "id": 1700000000004,
+      "name": "Mobile app v1 rewrite",
+      "start": "2026-04-12",
+      "end": "2026-05-04",
+      "subtasks": [
+        {
+          "name": "Write design doc",
+          "status": "completed"
+        },
+        {
+          "name": "Monitor metrics",
+          "status": "pending"
+        },
+        {
+          "name": "Handover notes",
+          "status": "in-progress"
+        },
+        {
+          "name": "Performance pass",
+          "status": "completed"
+        },
+        {
+          "name": "Roll out to 100%",
+          "status": "completed"
+        },
+        {
+          "name": "Scope & estimate",
+          "status": "in-progress"
+        }
+      ],
+      "archived": true
+    },
+    {
+      "id": 1700000000005,
+      "name": "Vendor evaluation",
+      "start": "2026-05-08",
+      "end": "2027-08-12",
+      "subtasks": [
+        {
+          "name": "Fix review comments",
+          "status": "pending"
+        },
+        {
+          "name": "Review with team",
+          "status": "completed"
+        },
+        {
+          "name": "Handover notes",
+          "status": "in-progress"
+        },
+        {
+          "name": "Implement core",
+          "status": "completed"
+        }
+      ],
+      "archived": true
+    },
+    {
+      "id": 1700000000006,
+      "name": "Spring Boot upgrade",
+      "start": "2026-02-04",
+      "end": "2027-06-10",
+      "subtasks": [
+        {
+          "name": "Monitor metrics",
+          "status": "pending"
+        },
+        {
+          "name": "Dry run in staging",
+          "status": "pending"
+        },
+        {
+          "name": "Review with team",
+          "status": "pending"
+        },
+        {
+          "name": "Update docs",
+          "status": "pending"
+        },
+        {
+          "name": "Handover notes",
+          "status": "pending"
+        }
+      ]
+    },
+    {
+      "id": 1700000000007,
+      "name": "Data warehouse cleanup",
+      "start": "2026-02-25",
+      "end": "2026-07-22",
+      "subtasks": [
+        {
+          "name": "Monitor metrics",
+          "status": "in-progress"
+        },
+        {
+          "name": "Roll out to 100%",
+          "status": "in-progress"
+        },
+        {
+          "name": "Update docs",
+          "status": "in-progress"
+        },
+        {
+          "name": "Handover notes",
+          "status": "in-progress"
+        },
+        {
+          "name": "Retrospective",
+          "status": "in-progress"
+        }
+      ]
+    },
+    {
+      "id": 1700000000008,
+      "name": "Security audit follow-ups",
+      "start": "2026-02-09",
+      "end": "2027-08-03",
+      "subtasks": [
+        {
+          "name": "Roll out to 10%",
+          "status": "completed"
+        },
+        {
+          "name": "Handover notes",
+          "status": "completed"
+        },
+        {
+          "name": "Retrospective",
+          "status": "completed"
+        },
+        {
+          "name": "Write design doc",
+          "status": "completed"
+        },
+        {
+          "name": "Scope & estimate",
+          "status": "completed"
+        },
+        {
+          "name": "Add tests",
+          "status": "completed"
+        }
+      ],
+      "archived": true
+    },
+    {
+      "id": 1700000000009,
+      "name": "Customer interview round 3",
+      "start": "2026-07-22",
+      "end": "2027-11-10",
+      "subtasks": [
+        {
+          "name": "Update docs",
+          "status": "in-progress"
+        },
+        {
+          "name": "Scope & estimate",
+          "status": "pending"
+        },
+        {
+          "name": "Roll out to 10%",
+          "status": "pending"
+        },
+        {
+          "name": "Performance pass",
+          "status": "in-progress"
+        },
+        {
+          "name": "Review with team",
+          "status": "pending"
+        },
+        {
+          "name": "Write design doc",
+          "status": "completed"
+        }
+      ]
+    },
+    {
+      "id": 1700000000010,
+      "name": "Design system tokens",
+      "start": "2026-08-03",
+      "end": "2027-07-28",
+      "subtasks": [
+        {
+          "name": "Review with team",
+          "status": "completed"
+        },
+        {
+          "name": "Roll out to 10%",
+          "status": "in-progress"
+        },
+        {
+          "name": "Dry run in staging",
+          "status": "pending"
+        }
+      ]
+    },
+    {
+      "id": 1700000000011,
+      "name": "Search relevance tuning",
+      "start": "2026-07-12",
+      "end": "2026-09-23",
+      "subtasks": [
+        {
+          "name": "Retrospective",
+          "status": "in-progress"
+        },
+        {
+          "name": "Dry run in staging",
+          "status": "pending"
+        },
+        {
+          "name": "Implement core",
+          "status": "pending"
+        },
+        {
+          "name": "Review with team",
+          "status": "completed"
+        },
+        {
+          "name": "Write design doc",
+          "status": "pending"
+        }
+      ]
+    },
+    {
+      "id": 1700000000012,
+      "name": "Billing reconciliation",
+      "start": "2026-05-01",
+      "end": "2026-10-09",
+      "subtasks": [
+        {
+          "name": "Review with team",
+          "status": "pending"
+        },
+        {
+          "name": "Dry run in staging",
+          "status": "pending"
+        },
+        {
+          "name": "Monitor metrics",
+          "status": "pending"
+        },
+        {
+          "name": "Update docs",
+          "status": "pending"
+        },
+        {
+          "name": "Roll out to 100%",
+          "status": "pending"
+        }
+      ],
+      "archived": true
+    },
+    {
+      "id": 1700000000013,
+      "name": "Incident review: Oct outage",
+      "start": "2026-06-23",
+      "end": "2026-06-23",
+      "subtasks": [
+        {
+          "name": "Retrospective",
+          "status": "in-progress"
+        },
+        {
+          "name": "Performance pass",
+          "status": "in-progress"
+        },
+        {
+          "name": "Handover notes",
+          "status": "in-progress"
+        },
+        {
+          "name": "Scope & estimate",
+          "status": "in-progress"
+        },
+        {
+          "name": "Roll out to 10%",
+          "status": "in-progress"
+        },
+        {
+          "name": "Monitor metrics",
+          "status": "in-progress"
+        }
+      ]
+    },
+    {
+      "id": 1700000000014,
+      "name": "Accessibility fixes (WCAG 2.1 AA)",
+      "start": "2026-02-16",
+      "end": "2027-07-13",
+      "subtasks": [
+        {
+          "name": "Retrospective",
+          "status": "completed"
+        },
+        {
+          "name": "Dry run in staging",
+          "status": "completed"
+        },
+        {
+          "name": "Scope & estimate",
+          "status": "completed"
+        },
+        {
+          "name": "Implement core",
+          "status": "completed"
+        },
+        {
+          "name": "Write design doc",
+          "status": "completed"
+        }
+      ]
+    },
+    {
+      "id": 1700000000015,
+      "name": "Kafka consumer lag alerts",
+      "start": "2026-06-20",
+      "end": "2026-08-04",
+      "subtasks": [
+        {
+          "name": "Scope & estimate",
+          "status": "in-progress"
+        },
+        {
+          "name": "Write design doc",
+          "status": "pending"
+        },
+        {
+          "name": "Performance pass",
+          "status": "completed"
+        }
+      ]
+    },
+    {
+      "id": 1700000000016,
+      "name": "Feature flag cleanup",
+      "start": "2026-04-20",
+      "end": "2026-10-03",
+      "subtasks": [
+        {
+          "name": "Dry run in staging",
+          "status": "pending"
+        },
+        {
+          "name": "Review with team",
+          "status": "completed"
+        },
+        {
+          "name": "Retrospective",
+          "status": "in-progress"
+        },
+        {
+          "name": "Add tests",
+          "status": "in-progress"
+        }
+      ]
+    },
+    {
+      "id": 1700000000017,
+      "name": "Docs site refresh",
+      "start": "2026-08-10",
+      "end": "2027-08-16",
+      "subtasks": [
+        {
+          "name": "Write design doc",
+          "status": "pending"
+        },
+        {
+          "name": "Review with team",
+          "status": "completed"
+        }
+      ],
+      "archived": true
+    },
+    {
+      "id": 1700000000018,
+      "name": "Load test: checkout",
+      "start": "2026-03-17",
+      "end": "2026-12-16",
+      "subtasks": [
+        {
+          "name": "Scope & estimate",
+          "status": "pending"
+        },
+        {
+          "name": "Implement core",
+          "status": "pending"
+        },
+        {
+          "name": "Monitor metrics",
+          "status": "pending"
+        },
+        {
+          "name": "Update docs",
+          "status": "pending"
+        }
+      ]
+    },
+    {
+      "id": 1700000000019,
+      "name": "Migrate cron jobs to scheduler",
+      "start": "2026-09-10",
+      "end": "2026-12-25",
+      "subtasks": [
+        {
+          "name": "Retrospective",
+          "status": "in-progress"
+        },
+        {
+          "name": "Write design doc",
+          "status": "in-progress"
+        },
+        {
+          "name": "Handover notes",
+          "status": "in-progress"
+        }
+      ]
+    },
+    {
+      "id": 1700000000020,
+      "name": "Rate limiting for public API",
+      "start": "2026-06-25",
+      "end": "2026-09-06",
+      "subtasks": [
+        {
+          "name": "Implement core",
+          "status": "completed"
+        },
+        {
+          "name": "Monitor metrics",
+          "status": "completed"
+        },
+        {
+          "name": "Fix review comments",
+          "status": "completed"
+        },
+        {
+          "name": "Handover notes",
+          "status": "completed"
+        }
+      ]
+    },
+    {
+      "id": 1700000000021,
+      "name": "Terraform module split",
+      "start": "2026-04-26",
+      "end": "2026-11-20",
+      "subtasks": [
+        {
+          "name": "Implement core",
+          "status": "pending"
+        },
+        {
+          "name": "Dry run in staging",
+          "status": "completed"
+        },
+        {
+          "name": "Handover notes",
+          "status": "in-progress"
+        },
+        {
+          "name": "Performance pass",
+          "status": "in-progress"
+        }
+      ]
+    },
+    {
+      "id": 1700000000022,
+      "name": "Team onboarding handbook",
+      "start": "2026-01-16",
+      "end": "2026-01-16",
+      "subtasks": [
+        {
+          "name": "Handover notes",
+          "status": "in-progress"
+        },
+        {
+          "name": "Roll out to 100%",
+          "status": "in-progress"
+        }
+      ],
+      "archived": true
+    },
+    {
+      "id": 1700000000023,
+      "name": "Cost review – cloud spend",
+      "start": "2026-02-08",
+      "end": "2026-06-08",
+      "subtasks": [
+        {
+          "name": "Roll out to 10%",
+          "status": "in-progress"
+        },
+        {
+          "name": "Implement core",
+          "status": "completed"
+        },
+        {
+          "name": "Update docs",
+          "status": "completed"
+        },
+        {
+          "name": "Fix review comments",
+          "status": "pending"
+        }
+      ]
+    },
+    {
+      "id": 1700000000024,
+      "name": "Retire legacy SSO",
+      "start": "2026-02-27",
+      "end": "2026-11-26",
+      "subtasks": [
+        {
+          "name": "Retrospective",
+          "status": "pending"
+        },
+        {
+          "name": "Write design doc",
+          "status": "pending"
+        },
+        {
+          "name": "Dry run in staging",
+          "status": "pending"
+        },
+        {
+          "name": "Implement core",
+          "status": "pending"
+        },
+        {
+          "name": "Roll out to 10%",
+          "status": "pending"
+        }
+      ]
+    },
+    {
+      "id": 1700000000025,
+      "name": "A/B test: pricing page",
+      "start": "2026-07-03",
+      "end": "2026-07-03",
+      "subtasks": [
+        {
+          "name": "Dry run in staging",
+          "status": "in-progress"
+        },
+        {
+          "name": "Handover notes",
+          "status": "in-progress"
+        },
+        {
+          "name": "Write design doc",
+          "status": "in-progress"
+        }
+      ]
+    },
+    {
+      "id": 1700000000026,
+      "name": "Email deliverability",
+      "start": "2026-03-01",
+      "end": "2026-03-01",
+      "subtasks": [
+        {
+          "name": "Roll out to 10%",
+          "status": "completed"
+        },
+        {
+          "name": "Fix review comments",
+          "status": "completed"
+        },
+        {
+          "name": "Retrospective",
+          "status": "completed"
+        }
+      ]
+    },
+    {
+      "id": 1700000000027,
+      "name": "Dark mode polish",
+      "start": "2026-06-05",
+      "end": "2027-10-22",
+      "subtasks": [
+        {
+          "name": "Monitor metrics",
+          "status": "completed"
+        },
+        {
+          "name": "Performance pass",
+          "status": "pending"
+        },
+        {
+          "name": "Review with team",
+          "status": "in-progress"
+        }
+      ]
+    },
+    {
+      "id": 1700000000028,
+      "name": "Localization: es, fr, de",
+      "start": "2026-04-27",
+      "end": "2026-12-14",
+      "subtasks": [
+        {
+          "name": "Performance pass",
+          "status": "completed"
+        },
+        {
+          "name": "Implement core",
+          "status": "pending"
+        },
+        {
+          "name": "Scope & estimate",
+          "status": "completed"
+        },
+        {
+          "name": "Add tests",
+          "status": "in-progress"
+        },
+        {
+          "name": "Fix review comments",
+          "status": "in-progress"
+        },
+        {
+          "name": "Retrospective",
+          "status": "completed"
+        }
+      ]
+    },
+    {
+      "id": 1700000000029,
+      "name": "Backup & restore drill",
+      "start": "2026-03-24",
+      "end": "2026-03-24",
+      "subtasks": [
+        {
+          "name": "Retrospective",
+          "status": "in-progress"
+        },
+        {
+          "name": "Roll out to 100%",
+          "status": "completed"
+        },
+        {
+          "name": "Monitor metrics",
+          "status": "pending"
+        },
+        {
+          "name": "Dry run in staging",
+          "status": "completed"
+        },
+        {
+          "name": "Handover notes",
+          "status": "completed"
+        }
+      ]
+    },
+    {
+      "id": 1700000000030,
+      "name": "OAuth scopes rework",
+      "start": "2026-03-06",
+      "end": "2026-03-25",
+      "subtasks": [
+        {
+          "name": "Review with team",
+          "status": "pending"
+        },
+        {
+          "name": "Roll out to 10%",
+          "status": "pending"
+        },
+        {
+          "name": "Roll out to 100%",
+          "status": "pending"
+        },
+        {
+          "name": "Write design doc",
+          "status": "pending"
+        },
+        {
+          "name": "Monitor metrics",
+          "status": "pending"
+        }
+      ],
+      "archived": true
+    },
+    {
+      "id": 1700000000031,
+      "name": "Analytics events v2",
+      "start": "2026-02-18",
+      "end": "2027-06-26",
+      "subtasks": [
+        {
+          "name": "Scope & estimate",
+          "status": "in-progress"
+        },
+        {
+          "name": "Implement core",
+          "status": "in-progress"
+        }
+      ]
+    },
+    {
+      "id": 1700000000032,
+      "name": "Support macros refresh",
+      "start": "2026-02-17",
+      "end": "2026-05-25",
+      "subtasks": [
+        {
+          "name": "Roll out to 10%",
+          "status": "completed"
+        },
+        {
+          "name": "Monitor metrics",
+          "status": "completed"
+        },
+        {
+          "name": "Scope & estimate",
+          "status": "completed"
+        }
+      ]
+    },
+    {
+      "id": 1700000000033,
+      "name": "Postgres 16 upgrade",
+      "start": "2026-08-20",
+      "end": "2026-08-20",
+      "subtasks": [
+        {
+          "name": "Monitor metrics",
+          "status": "completed"
+        },
+        {
+          "name": "Implement core",
+          "status": "in-progress"
+        }
+      ],
+      "archived": true
+    },
+    {
+      "id": 1700000000034,
+      "name": "Mono-repo tooling",
+      "start": "2026-04-23",
+      "end": "2027-09-17",
+      "subtasks": [
+        {
+          "name": "Monitor metrics",
+          "status": "pending"
+        },
+        {
+          "name": "Add tests",
+          "status": "in-progress"
+        },
+        {
+          "name": "Performance pass",
+          "status": "completed"
+        },
+        {
+          "name": "Implement core",
+          "status": "in-progress"
+        },
+        {
+          "name": "Roll out to 10%",
+          "status": "in-progress"
+        }
+      ]
+    },
+    {
+      "id": 1700000000035,
+      "name": "Crash-free rate > 99.8%",
+      "start": "2026-02-07",
+      "end": "2026-11-14",
+      "subtasks": [
+        {
+          "name": "Retrospective",
+          "status": "pending"
+        },
+        {
+          "name": "Add tests",
+          "status": "pending"
+        }
+      ]
+    },
+    {
+      "id": 1700000000036,
+      "name": "Quarterly planning prep",
+      "start": "2026-03-05",
+      "end": "2026-03-05",
+      "subtasks": [
+        {
+          "name": "Handover notes",
+          "status": "pending"
+        },
+        {
+          "name": "Write design doc",
+          "status": "pending"
+        },
+        {
+          "name": "Dry run in staging",
+          "status": "pending"
+        },
+        {
+          "name": "Roll out to 10%",
+          "status": "pending"
+        }
+      ]
+    },
+    {
+      "id": 1700000000037,
+      "name": "Contractor handover",
+      "start": "2026-07-17",
+      "end": "2026-11-06",
+      "subtasks": [
+        {
+          "name": "Dry run in staging",
+          "status": "in-progress"
+        },
+        {
+          "name": "Update docs",
+          "status": "in-progress"
+        },
+        {
+          "name": "Performance pass",
+          "status": "in-progress"
+        }
+      ]
+    },
+    {
+      "id": 1700000000038,
+      "name": "PDF export revamp",
+      "start": "2026-06-01",
+      "end": "2026-06-03",
+      "subtasks": [
+        {
+          "name": "Update docs",
+          "status": "completed"
+        },
+        {
+          "name": "Monitor metrics",
+          "status": "completed"
+        },
+        {
+          "name": "Roll out to 10%",
+          "status": "completed"
+        }
+      ]
+    },
+    {
+      "id": 1700000000039,
+      "name": "Notifications digest",
+      "start": "2026-06-17",
+      "end": "2026-12-13",
+      "subtasks": [
+        {
+          "name": "Roll out to 100%",
+          "status": "completed"
+        },
+        {
+          "name": "Add tests",
+          "status": "pending"
+        },
+        {
+          "name": "Monitor metrics",
+          "status": "pending"
+        },
+        {
+          "name": "Write design doc",
+          "status": "in-progress"
+        },
+        {
+          "name": "Retrospective",
+          "status": "in-progress"
+        }
+      ]
+    },
+    {
+      "id": 1700000000040,
+      "name": "Edge cases: <b>bold</b> & \"quoted\" name",
+      "start": "2026-05-27",
+      "end": "2026-05-27",
+      "subtasks": [
+        {
+          "name": "Retrospective",
+          "status": "pending"
+        },
+        {
+          "name": "Add tests",
+          "status": "completed"
+        },
+        {
+          "name": "Dry run in staging",
+          "status": "in-progress"
+        }
+      ]
+    },
+    {
+      "id": 1700000000041,
+      "name": "Very long task name that keeps going to check how wrapping and truncation behave in the row layout of the tracker",
+      "start": "2026-05-02",
+      "end": "2026-12-03",
+      "subtasks": [
+        {
+          "name": "Fix review comments",
+          "status": "in-progress"
+        },
+        {
+          "name": "Handover notes",
+          "status": "pending"
+        },
+        {
+          "name": "Review with team",
+          "status": "completed"
+        },
+        {
+          "name": "Dry run in staging",
+          "status": "pending"
+        },
+        {
+          "name": "Write design doc",
+          "status": "in-progress"
+        }
+      ]
+    },
+    {
+      "id": 1700000000042,
+      "name": "Emoji & unicode ✅ – café – 東京",
+      "start": "2026-05-28",
+      "end": "2026-10-03",
+      "subtasks": [
+        {
+          "name": "Write design doc",
+          "status": "pending"
+        },
+        {
+          "name": "Roll out to 10%",
+          "status": "pending"
+        }
+      ]
+    },
+    {
+      "id": 1700000000043,
+      "name": "Single-subtask task",
+      "start": "2026-03-02",
+      "end": "2027-06-09",
+      "subtasks": [
+        {
+          "name": "Monitor metrics",
+          "status": "completed"
+        }
+      ]
+    },
+    {
+      "id": 1700000000044,
+      "name": "Task with no subtasks yet",
+      "start": "2026-01-06",
+      "end": "2026-02-09",
+      "subtasks": []
+    },
+    {
+      "id": 1700000000045,
+      "name": "Ten subtasks stress test",
+      "start": "2026-04-10",
+      "end": "2026-05-17",
+      "subtasks": [
+        {
+          "name": "Roll out to 10%",
+          "status": "pending"
+        },
+        {
+          "name": "Monitor metrics",
+          "status": "completed"
+        },
+        {
+          "name": "Retrospective",
+          "status": "completed"
+        },
+        {
+          "name": "Review with team",
+          "status": "completed"
+        },
+        {
+          "name": "Add tests",
+          "status": "pending"
+        },
+        {
+          "name": "Update docs",
+          "status": "completed"
+        },
+        {
+          "name": "Scope & estimate",
+          "status": "in-progress"
+        },
+        {
+          "name": "Handover notes",
+          "status": "pending"
+        },
+        {
+          "name": "Performance pass",
+          "status": "in-progress"
+        },
+        {
+          "name": "Fix review comments",
+          "status": "pending"
+        }
+      ]
+    },
+    {
+      "id": 1700000000046,
+      "name": "Archived but in progress",
+      "start": "2026-07-17",
+      "end": "2027-11-18",
+      "subtasks": [
+        {
+          "name": "Add tests",
+          "status": "in-progress"
+        },
+        {
+          "name": "Handover notes",
+          "status": "pending"
+        },
+        {
+          "name": "Implement core",
+          "status": "completed"
+        },
+        {
+          "name": "Fix review comments",
+          "status": "completed"
+        }
+      ],
+      "archived": true
+    },
+    {
+      "id": 1700000000047,
+      "name": "Archived and fully completed",
+      "start": "2026-03-01",
+      "end": "2026-07-02",
+      "subtasks": [
+        {
+          "name": "Write design doc",
+          "status": "completed"
+        },
+        {
+          "name": "Retrospective",
+          "status": "completed"
+        },
+        {
+          "name": "Handover notes",
+          "status": "completed"
+        }
+      ],
+      "archived": true
+    },
+    {
+      "id": 1700000000048,
+      "name": "Archived and not started",
+      "start": "2026-02-22",
+      "end": "2026-07-02",
+      "subtasks": [
+        {
+          "name": "Performance pass",
+          "status": "pending"
+        },
+        {
+          "name": "Dry run in staging",
+          "status": "pending"
+        },
+        {
+          "name": "Monitor metrics",
+          "status": "pending"
+        }
+      ],
+      "archived": true
+    },
+    {
+      "id": 1700000000049,
+      "name": "Year-boundary ETA",
+      "start": "2026-12-15",
+      "end": "2027-01-01",
+      "subtasks": [
+        {
+          "name": "Roll out to 10%",
+          "status": "in-progress"
+        },
+        {
+          "name": "Review with team",
+          "status": "in-progress"
+        },
+        {
+          "name": "Fix review comments",
+          "status": "in-progress"
+        },
+        {
+          "name": "Add tests",
+          "status": "in-progress"
+        }
+      ]
+    }
+  ]
+}
