@@ -116,7 +116,13 @@ document.addEventListener("submit", e => {
 
 document.addEventListener("keydown", e => {
   if (e.key === "Escape" && adding) { adding = false; render(); }
-  else if (e.key === "Enter" && e.target.closest?.(".newtask")) { e.preventDefault(); e.target.form.requestSubmit(); }
+  else if (e.key === "Enter" && e.target.closest?.(".newtask")) {
+    e.preventDefault();
+    const f = e.target.form;
+    if (e.target.name !== "n") f.requestSubmit();                       // Enter in the date field saves
+    else if (f.n.value.trim()) { f.d.focus(); try { f.d.showPicker() } catch {} }  // Enter in the name opens the date picker
+    else f.reportValidity();
+  }
 });
 dark.onchange = render;
 fetch("tasks.json")
