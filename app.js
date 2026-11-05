@@ -49,7 +49,7 @@ const taskHTML = t => {
     <div class="head"><button class="plus" data-a="toggle" aria-expanded="${o}" aria-label="${o?"Collapse":"Expand"}"></button>
       <div class="info"><div class="title">${esc(t.name)}</div>${o?`<div class="dates">ETA: ${fmt(t.end)}</div>`:""}</div>
       <span class="capsule ${st}">${ICON[st]}${lbl(st)}</span></div>
-    ${o?`<div class="subs">${t.subtasks.map((s,i)=>`<div class="sub ${s.status}"><button class="cyc" data-a="cycle" data-i="${i}"><span class="label">${esc(s.name)}</span><span class="stat">${ICON[s.status]}${lbl(s.status)}</span></button>${btn("del","delsub",I.trash,"Delete subtask",i,armed===`s:${t.id}:${i}`)}</div>`).join("")}
+    ${o?`<div class="subs">${t.subtasks.map((s,i)=>`<div class="sub ${s.status}"><span class="label">${esc(s.name)}</span><button class="stat" data-a="cycle" data-i="${i}" title="Change status">${ICON[s.status]}${lbl(s.status)}</button>${btn("del","delsub",I.trash,"Delete subtask",i,armed===`s:${t.id}:${i}`)}</div>`).join("")}
       <form class="subnew"><input name="n" placeholder="Add subtask" autocomplete="off" required></form>
       <div class="acts">${!sort && i > 0 ? btn("act","up",I.up,"Move up") : ""}${!sort && i >= 0 && i < A.length - 1 ? btn("act","down",I.down,"Move down") : ""}${btn("act","archive",t.archived?I.restore:I.archive,t.archived?"Restore":"Archive")}${btn("act","deltask",I.trash,"Delete task",null,armed===`t:${t.id}`)}</div></div>`:""}
   </article>`;
