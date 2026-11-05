@@ -93,9 +93,9 @@ const find = el => data.tasks.find(t => t.id == el.closest(".task")?.dataset.id)
 
 document.addEventListener("click", e => {
   if (!loaded) return;
-  const was = armed, wasEdit = editing; armed = null;
-  if (editing && !e.target.closest(".edit,.sedit")) editing = null;
-  const b = e.target.closest("[data-a]"); if (!b) { if (was || wasEdit) render(); return; }
+  const was = armed, cancel = editing && !e.target.closest(".edit,.sedit"); armed = null;
+  if (cancel) editing = null;
+  const b = e.target.closest("[data-a]"); if (!b) { if (was || cancel) render(); return; }
   const t = find(b), a = b.dataset.a;
   if (a === "toggle") open.has(t.id) ? open.delete(t.id) : open.add(t.id);
   else if (a === "cycle") { t.subtasks[b.dataset.i].status = NEXT[t.subtasks[b.dataset.i].status]; save(); }
