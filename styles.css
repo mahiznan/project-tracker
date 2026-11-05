@@ -30,7 +30,9 @@ h1{font-size:22px;font-weight:600;letter-spacing:-.01em;margin:0}
 .plus::before,.plus::after{content:"";position:absolute;left:50%;top:50%;background:var(--muted);transform:translate(-50%,-50%)}
 .plus::before{width:8px;height:1.5px}.plus::after{width:1.5px;height:8px}
 .open .plus::after{display:none}
-button.plus:hover{border-color:var(--text)}
+.head:hover .plus{border-color:var(--text)}
+.head{cursor:pointer}
+.edit{cursor:auto}
 
 .capsule,.stat{display:flex;align-items:center;gap:7px;width:120px;flex-shrink:0;padding-left:12px;font-weight:550}
 .capsule{margin-top:-2px;padding-top:3px;padding-bottom:3px;border-radius:999px;font-size:12px}

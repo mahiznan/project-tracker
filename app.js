@@ -48,7 +48,7 @@ const btn = (cls, a, icon, label, i, on) => `<button class="${cls}${on?" armed":
 const taskHTML = t => {
   const st = status(t), o = open.has(t.id), A = active(), i = A.indexOf(t);
   return `<article class="task${o?" open":""}" data-id="${t.id}">
-    <div class="head"><button class="plus" data-a="toggle" aria-expanded="${o}" aria-label="${o?"Collapse":"Expand"}"></button>
+    <div class="head" data-a="toggle"><button class="plus" data-a="toggle" aria-expanded="${o}" aria-label="${o?"Collapse":"Expand"}"></button>
       <div class="info">${editing?.id === t.id && editing.i == null ? `<form class="edit"><input name="n" value="${esc(t.name)}" autocomplete="off" required><input name="d" type="date" value="${t.end || ""}" required></form>` : `<div class="title">${esc(t.name)}</div>${o?`<div class="dates">ETA: ${fmt(t.end)}</div>`:""}`}</div>
       <span class="capsule ${st}">${ICON[st]}${lbl(st)}</span></div>
     ${o?`<div class="subs">${t.subtasks.map((s,i)=>`<div class="sub ${s.status}"><span class="mv">${i > 0 ? btn("mvb","subup",I.sup,"Move subtask up",i) : ""}${i < t.subtasks.length - 1 ? btn("mvb","subdown",I.sdown,"Move subtask down",i) : ""}</span>${editing?.id === t.id && editing.i === i ? `<form class="sedit"><input name="n" value="${esc(s.name)}" autocomplete="off" required></form>` : `<span class="label" data-a="sedit" data-i="${i}" title="Click to edit">${esc(s.name)}</span>`}<button class="stat" data-a="cycle" data-i="${i}" title="Change status">${ICON[s.status]}${lbl(s.status)}</button>${btn("del","delsub",I.trash,"Delete subtask",i,armed===`s:${t.id}:${i}`)}</div>`).join("")}
@@ -95,6 +95,7 @@ document.addEventListener("click", e => {
   if (!loaded) return;
   const was = armed, cancel = editing && !e.target.closest(".edit,.sedit"); armed = null;
   if (cancel) editing = null;
+  if (e.target.closest(".edit,.sedit")) return;   // clicks inside an edit field are just for the field
   const b = e.target.closest("[data-a]"); if (!b) { if (was || cancel) render(); return; }
   const t = find(b), a = b.dataset.a;
   if (a === "toggle") open.has(t.id) ? open.delete(t.id) : open.add(t.id);
