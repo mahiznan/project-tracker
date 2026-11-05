@@ -87,3 +87,8 @@ button.stat:hover{opacity:.7}
 .open>.head .capsule .jd{animation:none}
 .open>.head .capsule .shine{animation:none;background:none;-webkit-text-fill-color:currentColor}
 .tools .on{color:var(--text)}
+.mv{position:absolute;left:-24px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;opacity:0}
+.mvb{height:12px;padding:0;line-height:0;color:var(--muted)}
+.mvb:hover{color:var(--text)}
+.sub:hover .mv,.mv:focus-within{opacity:1}
+@media(hover:none){.mv{opacity:.6}}

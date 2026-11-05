@@ -20,6 +20,7 @@ const I = {
   sort0: svg('<path d="M5.5 12.5v-9M3.5 5.5l2-2 2 2M10.5 3.5v9M8.5 10.5l2 2 2-2"/>'),
   sort1: svg('<path d="M3 4.5h4M3 8h6M3 11.5h8M12.5 12V4M10.5 6l2-2 2 2"/>'),
   sort2: svg('<path d="M3 4.5h8M3 8h6M3 11.5h4M12.5 4v8M10.5 10l2 2 2-2"/>'),
+  sup: svg('<path d="M4.5 10 8 6.5l3.5 3.5"/>', 12), sdown: svg('<path d="M4.5 6 8 9.5 11.5 6"/>', 12),
   up: svg('<path d="M4.5 10 8 6.5l3.5 3.5"/>'), down: svg('<path d="M4.5 6 8 9.5 11.5 6"/>'),
   archive: svg('<path d="M2.5 3.5h11v2.5h-11zM3.5 6v7h9V6M8 7.8v3.2M6.4 9.6 8 11.2l1.6-1.6"/>'),
   restore: svg('<path d="M2.5 3.5h11v2.5h-11zM3.5 6v7h9V6M8 11V7.8M6.4 9.4 8 7.8l1.6 1.6"/>'),
@@ -49,7 +50,7 @@ const taskHTML = t => {
     <div class="head"><button class="plus" data-a="toggle" aria-expanded="${o}" aria-label="${o?"Collapse":"Expand"}"></button>
       <div class="info"><div class="title">${esc(t.name)}</div>${o?`<div class="dates">ETA: ${fmt(t.end)}</div>`:""}</div>
       <span class="capsule ${st}">${ICON[st]}${lbl(st)}</span></div>
-    ${o?`<div class="subs">${t.subtasks.map((s,i)=>`<div class="sub ${s.status}"><span class="label">${esc(s.name)}</span><button class="stat" data-a="cycle" data-i="${i}" title="Change status">${ICON[s.status]}${lbl(s.status)}</button>${btn("del","delsub",I.trash,"Delete subtask",i,armed===`s:${t.id}:${i}`)}</div>`).join("")}
+    ${o?`<div class="subs">${t.subtasks.map((s,i)=>`<div class="sub ${s.status}"><span class="mv">${i > 0 ? btn("mvb","subup",I.sup,"Move subtask up",i) : ""}${i < t.subtasks.length - 1 ? btn("mvb","subdown",I.sdown,"Move subtask down",i) : ""}</span><span class="label">${esc(s.name)}</span><button class="stat" data-a="cycle" data-i="${i}" title="Change status">${ICON[s.status]}${lbl(s.status)}</button>${btn("del","delsub",I.trash,"Delete subtask",i,armed===`s:${t.id}:${i}`)}</div>`).join("")}
       <form class="subnew"><input name="n" placeholder="Add subtask" autocomplete="off" required></form>
       <div class="acts">${!sort && i > 0 ? btn("act","up",I.up,"Move up") : ""}${!sort && i >= 0 && i < A.length - 1 ? btn("act","down",I.down,"Move down") : ""}${btn("act","archive",t.archived?I.restore:I.archive,t.archived?"Restore":"Archive")}${btn("act","deltask",I.trash,"Delete task",null,armed===`t:${t.id}`)}</div></div>`:""}
   </article>`;
@@ -103,6 +104,10 @@ document.addEventListener("click", e => {
   else if ((a === "up" || a === "down") && !sort) {
     const A = active(), o = A[A.indexOf(t) + (a === "up" ? -1 : 1)];
     if (o) { const x = data.tasks.indexOf(t), y = data.tasks.indexOf(o); [data.tasks[x], data.tasks[y]] = [o, t]; focus = `[data-id="${t.id}"] [data-a="${a}"]`; save(); }
+  }
+  else if (a === "subup" || a === "subdown") {
+    const i = +b.dataset.i, j = a === "subup" ? i - 1 : i + 1, s = t.subtasks;
+    if (s[j]) { [s[i], s[j]] = [s[j], s[i]]; focus = `[data-id="${t.id}"] [data-a="${a}"][data-i="${j}"]`; save(); }
   }
   else if (a === "more") shown++;
   else if (a === "list") { shown = shown >= active().length ? 1 : active().length; open.clear(); }
