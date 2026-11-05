@@ -92,3 +92,9 @@ button.stat:hover{opacity:.7}
 .mvb:hover{color:var(--text)}
 .sub:hover .mv,.mv:focus-within{opacity:1}
 @media(hover:none){.mv{opacity:.6}}
+.edit{display:flex;gap:8px;align-items:center}
+.edit input[name=n]{flex:1;min-width:0;font-weight:550}
+.edit input[name=d]{font-size:12px;color:var(--muted)}
+.sedit{flex:1;min-width:0}
+.sedit input{width:100%;font-size:13px}
+.sub .label[data-a]{cursor:text}

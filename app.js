@@ -20,6 +20,7 @@ const I = {
   sort0: svg('<path d="M5.5 12.5v-9M3.5 5.5l2-2 2 2M10.5 3.5v9M8.5 10.5l2 2 2-2"/>'),
   sort1: svg('<path d="M3 4.5h4M3 8h6M3 11.5h8M12.5 12V4M10.5 6l2-2 2 2"/>'),
   sort2: svg('<path d="M3 4.5h8M3 8h6M3 11.5h4M12.5 4v8M10.5 10l2 2 2-2"/>'),
+  edit: svg('<path d="M3 13l.7-3L10.8 2.9a1.4 1.4 0 0 1 2 2L5.7 12 3 13zM9.5 4.2l2.3 2.3"/>'),
   sup: svg('<path d="M4.5 10 8 6.5l3.5 3.5"/>', 12), sdown: svg('<path d="M4.5 6 8 9.5 11.5 6"/>', 12),
   up: svg('<path d="M4.5 10 8 6.5l3.5 3.5"/>'), down: svg('<path d="M4.5 6 8 9.5 11.5 6"/>'),
   archive: svg('<path d="M2.5 3.5h11v2.5h-11zM3.5 6v7h9V6M8 7.8v3.2M6.4 9.6 8 11.2l1.6-1.6"/>'),
@@ -34,7 +35,7 @@ const status = t => { const a = t.subtasks.map(s => s.status);
 const dark = matchMedia("(prefers-color-scheme:dark)");
 const isDark = () => (document.documentElement.dataset.theme || (dark.matches ? "dark" : "light")) === "dark";
 const open = new Set();
-let shown = 1, adding = false, archOpen = false, focus = null, armed = null, sort = 0;  // sort: 0 manual, 1 status (pending first), 2 status (completed first)
+let shown = 1, adding = false, archOpen = false, focus = null, armed = null, editing = null, sort = 0;  // sort: 0 manual, 1 status (pending first), 2 status (completed first)
 const RANK = [null, {pending:0, "in-progress":1, completed:2}, {completed:0, "in-progress":1, pending:2}];  // by sort mode
 const active = () => {
   const a = data.tasks.filter(t => !t.archived);
@@ -48,11 +49,11 @@ const taskHTML = t => {
   const st = status(t), o = open.has(t.id), A = active(), i = A.indexOf(t);
   return `<article class="task${o?" open":""}" data-id="${t.id}">
     <div class="head"><button class="plus" data-a="toggle" aria-expanded="${o}" aria-label="${o?"Collapse":"Expand"}"></button>
-      <div class="info"><div class="title">${esc(t.name)}</div>${o?`<div class="dates">ETA: ${fmt(t.end)}</div>`:""}</div>
+      <div class="info">${editing?.id === t.id && editing.i == null ? `<form class="edit"><input name="n" value="${esc(t.name)}" autocomplete="off" required><input name="d" type="date" value="${t.end || ""}" required></form>` : `<div class="title">${esc(t.name)}</div>${o?`<div class="dates">ETA: ${fmt(t.end)}</div>`:""}`}</div>
       <span class="capsule ${st}">${ICON[st]}${lbl(st)}</span></div>
-    ${o?`<div class="subs">${t.subtasks.map((s,i)=>`<div class="sub ${s.status}"><span class="mv">${i > 0 ? btn("mvb","subup",I.sup,"Move subtask up",i) : ""}${i < t.subtasks.length - 1 ? btn("mvb","subdown",I.sdown,"Move subtask down",i) : ""}</span><span class="label">${esc(s.name)}</span><button class="stat" data-a="cycle" data-i="${i}" title="Change status">${ICON[s.status]}${lbl(s.status)}</button>${btn("del","delsub",I.trash,"Delete subtask",i,armed===`s:${t.id}:${i}`)}</div>`).join("")}
+    ${o?`<div class="subs">${t.subtasks.map((s,i)=>`<div class="sub ${s.status}"><span class="mv">${i > 0 ? btn("mvb","subup",I.sup,"Move subtask up",i) : ""}${i < t.subtasks.length - 1 ? btn("mvb","subdown",I.sdown,"Move subtask down",i) : ""}</span>${editing?.id === t.id && editing.i === i ? `<form class="sedit"><input name="n" value="${esc(s.name)}" autocomplete="off" required></form>` : `<span class="label" data-a="sedit" data-i="${i}" title="Click to edit">${esc(s.name)}</span>`}<button class="stat" data-a="cycle" data-i="${i}" title="Change status">${ICON[s.status]}${lbl(s.status)}</button>${btn("del","delsub",I.trash,"Delete subtask",i,armed===`s:${t.id}:${i}`)}</div>`).join("")}
       <form class="subnew"><input name="n" placeholder="Add subtask" autocomplete="off" required></form>
-      <div class="acts">${!sort && i > 0 ? btn("act","up",I.up,"Move up") : ""}${!sort && i >= 0 && i < A.length - 1 ? btn("act","down",I.down,"Move down") : ""}${btn("act","archive",t.archived?I.restore:I.archive,t.archived?"Restore":"Archive")}${btn("act","deltask",I.trash,"Delete task",null,armed===`t:${t.id}`)}</div></div>`:""}
+      <div class="acts">${btn("act","edit",I.edit,"Edit task")}${!sort && i > 0 ? btn("act","up",I.up,"Move up") : ""}${!sort && i >= 0 && i < A.length - 1 ? btn("act","down",I.down,"Move down") : ""}${btn("act","archive",t.archived?I.restore:I.archive,t.archived?"Restore":"Archive")}${btn("act","deltask",I.trash,"Delete task",null,armed===`t:${t.id}`)}</div></div>`:""}
   </article>`;
 };
 
@@ -92,8 +93,9 @@ const find = el => data.tasks.find(t => t.id == el.closest(".task")?.dataset.id)
 
 document.addEventListener("click", e => {
   if (!loaded) return;
-  const was = armed; armed = null;
-  const b = e.target.closest("[data-a]"); if (!b) { if (was) render(); return; }
+  const was = armed, wasEdit = editing; armed = null;
+  if (editing && !e.target.closest(".edit,.sedit")) editing = null;
+  const b = e.target.closest("[data-a]"); if (!b) { if (was || wasEdit) render(); return; }
   const t = find(b), a = b.dataset.a;
   if (a === "toggle") open.has(t.id) ? open.delete(t.id) : open.add(t.id);
   else if (a === "cycle") { t.subtasks[b.dataset.i].status = NEXT[t.subtasks[b.dataset.i].status]; save(); }
@@ -109,6 +111,8 @@ document.addEventListener("click", e => {
     const i = +b.dataset.i, j = a === "subup" ? i - 1 : i + 1, s = t.subtasks;
     if (s[j]) { [s[i], s[j]] = [s[j], s[i]]; focus = `[data-id="${t.id}"] [data-a="${a}"][data-i="${j}"]`; save(); }
   }
+  else if (a === "edit") { editing = {id: t.id}; focus = `[data-id="${t.id}"] .edit input`; }
+  else if (a === "sedit") { editing = {id: t.id, i: +b.dataset.i}; focus = `[data-id="${t.id}"] .sedit input`; }
   else if (a === "more") shown++;
   else if (a === "list") { shown = shown >= active().length ? 1 : active().length; open.clear(); }
   else if (a === "all") { const T = active(), every = shown >= T.length && T.every(x => open.has(x.id));
@@ -123,7 +127,11 @@ document.addEventListener("submit", e => {
   e.preventDefault();
   if (!loaded) return;
   const f = e.target, n = f.n.value.trim(); if (!n) return;
-  if (f.classList.contains("newtask")) {
+  if (f.classList.contains("edit")) {
+    const t = find(f); t.name = n; if (f.d.value) t.end = f.d.value; editing = null;
+  } else if (f.classList.contains("sedit")) {
+    const t = find(f); t.subtasks[editing.i].name = n; editing = null;
+  } else if (f.classList.contains("newtask")) {
     const t = {id: Date.now(), name: n, start: new Date().toLocaleDateString("en-CA"), end: f.d.value, subtasks: []};
     data.tasks.unshift(t); open.add(t.id); adding = false; shown++;
     focus = `[data-id="${t.id}"] .subnew input`;
@@ -136,11 +144,11 @@ document.addEventListener("submit", e => {
 });
 
 document.addEventListener("keydown", e => {
-  if (e.key === "Escape" && adding) { adding = false; render(); }
-  else if (e.key === "Enter" && e.target.closest?.(".newtask")) {
+  if (e.key === "Escape" && (adding || editing)) { adding = false; editing = null; render(); }
+  else if (e.key === "Enter" && e.target.closest?.(".newtask,.edit")) {
     e.preventDefault();
     const f = e.target.form;
-    if (e.target.name !== "n") f.requestSubmit();                       // Enter in the date field saves
+    if (e.target.name !== "n" || f.classList.contains("edit")) f.requestSubmit();                       // Enter in the date field saves
     else if (f.n.value.trim()) { f.d.focus(); try { f.d.showPicker() } catch {} }  // Enter in the name opens the date picker
     else f.reportValidity();
   }
