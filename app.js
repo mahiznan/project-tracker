@@ -83,7 +83,7 @@ function save() {
   saveTimer = setTimeout(async () => {
     let failed;
     try {
-      failed = !(await fetch("tasks.json", { method: "PUT", headers: { "Content-Type": "application/json" }, body: JSON.stringify(data) })).ok;
+      failed = !(await fetch("tasks.php", { method: "PUT", headers: { "Content-Type": "application/json" }, body: JSON.stringify(data) })).ok;
     } catch { failed = true; }
     $("note").hidden = !failed;
   }, 150);
@@ -155,7 +155,7 @@ document.addEventListener("keydown", e => {
   }
 });
 dark.onchange = render;
-fetch("tasks.json")
+fetch("tasks.php")
   .then(r => { if (!r.ok) throw 0; return r.json(); })
   .then(d => { if (!d || !Array.isArray(d.tasks)) throw 0; data = d; loaded = true; shown = active().length; render(); })
-  .catch(() => { $("tasks").innerHTML = '<div class="empty">Could not load tasks.json</div>'; });
+  .catch(() => { $("tasks").innerHTML = '<div class="empty">Could not load tasks</div>'; });

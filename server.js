@@ -35,7 +35,7 @@ function createServer(dataFile) {
   return http.createServer((req, res) => {
     try {
       const url = req.url.split("?")[0];
-      if (url === "/tasks.json") {
+      if (url === "/tasks.json" || url === "/tasks.php") {
         if (req.method === "GET") {
           if (!fs.existsSync(dataFile)) fs.writeFileSync(dataFile, '{"tasks":[]}\n');
           return send(res, 200, fs.readFileSync(dataFile), TYPES[".json"]);

@@ -1,0 +1,23 @@
+#----------------------------------------------------------------cp:ppd
+# Section managed by cPanel: Password Protected Directories     -cp:ppd
+# - Do not edit this section of the htaccess file!              -cp:ppd
+#----------------------------------------------------------------cp:ppd
+AuthType Basic
+AuthName "Protected 'tasks.learnerandtutor.com'"
+AuthUserFile "/home1/learnf6d/.htpasswds/tasks.learnerandtutor.com/passwd"
+Require valid-user
+#----------------------------------------------------------------cp:ppd
+# End section managed by cPanel: Password Protected Directories -cp:ppd
+#----------------------------------------------------------------cp:ppd
+
+Options -Indexes
+
+# Force HTTPS (the password is sent on every request)
+RewriteEngine On
+RewriteCond %{HTTPS} off
+RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
+
+# Never serve data or backups directly
+<FilesMatch "\.(json|bak|tmp)$">
+  Require all denied
+</FilesMatch>
