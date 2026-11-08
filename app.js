@@ -23,6 +23,8 @@ const I = {
   edit: svg('<path d="M3 13l.7-3L10.8 2.9a1.4 1.4 0 0 1 2 2L5.7 12 3 13zM9.5 4.2l2.3 2.3"/>'),
   sup: svg('<path d="M4.5 10 8 6.5l3.5 3.5"/>', 12), sdown: svg('<path d="M4.5 6 8 9.5 11.5 6"/>', 12),
   up: svg('<path d="M4.5 10 8 6.5l3.5 3.5"/>'), down: svg('<path d="M4.5 6 8 9.5 11.5 6"/>'),
+  todo: svg('<rect x="2.5" y="2.5" width="11" height="11" rx="2.5"/><path d="M5.5 8.2l1.8 1.8 3.2-3.6"/>'),
+  todoOut: svg('<path d="M13 8H3M7 4 3 8l4 4"/>'),
   archive: svg('<path d="M2.5 3.5h11v2.5h-11zM3.5 6v7h9V6M8 7.8v3.2M6.4 9.6 8 11.2l1.6-1.6"/>'),
   restore: svg('<path d="M2.5 3.5h11v2.5h-11zM3.5 6v7h9V6M8 11V7.8M6.4 9.4 8 7.8l1.6 1.6"/>'),
   trash: svg('<path d="M3 4.5h10M6.5 4.5V3h3v1.5M4.5 4.5l.6 8.5h5.8l.6-8.5M7 7v3.5M9 7v3.5"/>', 14)
@@ -35,10 +37,10 @@ const status = t => { const a = t.subtasks.map(s => s.status);
 const dark = matchMedia("(prefers-color-scheme:dark)");
 const isDark = () => (document.documentElement.dataset.theme || (dark.matches ? "dark" : "light")) === "dark";
 const open = new Set();
-let shown = 1, adding = false, archOpen = false, focus = null, armed = null, editing = null, sort = 0;  // sort: 0 manual, 1 status (pending first), 2 status (completed first)
+let shown = 1, adding = false, archOpen = false, todoOpen = false, focus = null, armed = null, editing = null, sort = 0;  // sort: 0 manual, 1 status (pending first), 2 status (completed first)
 const RANK = [null, {pending:0, "in-progress":1, completed:2}, {completed:0, "in-progress":1, pending:2}];  // by sort mode
 const active = () => {
-  const a = data.tasks.filter(t => !t.archived);
+  const a = data.tasks.filter(t => !t.archived && !t.todo);
   return sort ? a.map(t => [RANK[sort][status(t)], t]).sort((x, y) => x[0] - y[0]).map(x => x[1]) : a;
 };
 
@@ -53,19 +55,22 @@ const taskHTML = t => {
       <span class="capsule ${st}">${ICON[st]}${lbl(st)}</span></div>
     ${o?`<div class="subs">${t.subtasks.map((s,i)=>`<div class="sub ${s.status}"><span class="mv">${i > 0 ? btn("mvb","subup",I.sup,"Move subtask up",i) : ""}${i < t.subtasks.length - 1 ? btn("mvb","subdown",I.sdown,"Move subtask down",i) : ""}</span>${editing?.id === t.id && editing.i === i ? `<form class="sedit"><input name="n" value="${esc(s.name)}" autocomplete="off" required></form>` : `<span class="label" data-a="sedit" data-i="${i}" title="Click to edit">${esc(s.name)}</span>`}<button class="stat" data-a="cycle" data-i="${i}" title="Change status">${ICON[s.status]}${lbl(s.status)}</button>${btn("del","delsub",I.trash,"Delete subtask",i,armed===`s:${t.id}:${i}`)}</div>`).join("")}
       <form class="subnew"><input name="n" placeholder="Add subtask" autocomplete="off" required></form>
-      <div class="acts">${btn("act","edit",I.edit,"Edit task")}${!sort && i > 0 ? btn("act","up",I.up,"Move up") : ""}${!sort && i >= 0 && i < A.length - 1 ? btn("act","down",I.down,"Move down") : ""}${btn("act","archive",t.archived?I.restore:I.archive,t.archived?"Restore":"Archive")}${btn("act","deltask",I.trash,"Delete task",null,armed===`t:${t.id}`)}</div></div>`:""}
+      <div class="acts">${btn("act","edit",I.edit,"Edit task")}${!sort && i > 0 ? btn("act","up",I.up,"Move up") : ""}${!sort && i >= 0 && i < A.length - 1 ? btn("act","down",I.down,"Move down") : ""}${!t.archived ? btn("act","todo",t.todo?I.todoOut:I.todo,t.todo?"Move back to tasks":"Move to Todo") : ""}${btn("act","archive",t.archived?I.restore:I.archive,t.archived?"Restore":"Archive")}${btn("act","deltask",I.trash,"Delete task",null,armed===`t:${t.id}`)}</div></div>`:""}
   </article>`;
 };
 
 function render() {
-  const T = active(), A = data.tasks.filter(t => t.archived);
+  const T = active(), A = data.tasks.filter(t => t.archived), D = data.tasks.filter(t => t.todo && !t.archived);
   shown = Math.min(Math.max(shown, 1), Math.max(T.length, 1));
   const full = shown >= T.length, allOpen = full && T.every(t => open.has(t.id));
   $("tasks").innerHTML = (adding ? `<form class="newtask"><i class="plus"></i><input name="n" placeholder="New task" autocomplete="off" required><input name="d" type="date" required></form>` : "")
     + T.slice(0, shown).map(taskHTML).join("");
   $("archived").innerHTML = archOpen ? (A.map(taskHTML).join("") || '<div class="empty">Nothing archived</div>') : "";
+  $("todolist").innerHTML = todoOpen ? (D.map(taskHTML).join("") || '<div class="empty">Nothing in Todo</div>') : "";
+  $("todo").classList.toggle("open", todoOpen);
+  document.querySelector("#todo .arch-head").innerHTML = `${I.chev} Todo <span>${D.length ? "· " + D.length : ""}</span>`;
   $("arch").classList.toggle("open", archOpen);
-  document.querySelector(".arch-head").innerHTML = `${I.chev} Archive <span>${A.length ? "· " + A.length : ""}</span>`;
+  document.querySelector("#arch .arch-head").innerHTML = `${I.chev} Archive <span>${A.length ? "· " + A.length : ""}</span>`;
   $("add").innerHTML = I.add;
   $("list").innerHTML = full ? I.one : I.list;  $("list").title = full ? "Show first task only" : "Show all tasks";
   $("all").innerHTML = allOpen ? I.none : I.all; $("all").title = allOpen ? "Collapse all" : "Show all";
@@ -100,7 +105,8 @@ document.addEventListener("click", e => {
   const t = find(b), a = b.dataset.a;
   if (a === "toggle") open.has(t.id) ? open.delete(t.id) : open.add(t.id);
   else if (a === "cycle") { t.subtasks[b.dataset.i].status = NEXT[t.subtasks[b.dataset.i].status]; save(); }
-  else if (a === "archive") { t.archived = !t.archived; open.delete(t.id); save(); }
+  else if (a === "archive") { t.archived = !t.archived; delete t.todo; open.delete(t.id); save(); }
+  else if (a === "todo") { t.todo = !t.todo || undefined; open.delete(t.id); save(); }
   else if (a === "deltask") { if (was === `t:${t.id}`) { data.tasks = data.tasks.filter(x => x !== t); open.delete(t.id); save(); } else armed = `t:${t.id}`; }
   else if (a === "delsub") { const k = `s:${t.id}:${b.dataset.i}`; if (was === k) { t.subtasks.splice(b.dataset.i, 1); save(); } else armed = k; }
   else if (a === "sort") sort = (sort + 1) % 3;
@@ -120,6 +126,7 @@ document.addEventListener("click", e => {
     if (every) open.clear(); else { shown = T.length; T.forEach(x => open.add(x.id)); } }
   else if (a === "add") { adding = !adding; if (adding) focus = ".newtask input"; }
   else if (a === "arch") archOpen = !archOpen;
+  else if (a === "tsec") todoOpen = !todoOpen;
   else if (a === "theme") { const t = isDark() ? "light" : "dark"; document.documentElement.dataset.theme = t; try { localStorage.theme = t } catch {} }
   render();
 });

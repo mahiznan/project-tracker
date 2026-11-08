@@ -1,8 +1,8 @@
 :root{color-scheme:light dark;
-  --bg:light-dark(#fff,#111112);--text:light-dark(#111,#ececec);--sub:light-dark(#555,#b5b5b5);--muted:light-dark(#8a8a8a,#8a8a8f);
-  --line:light-dark(#ececec,#272729);--done:light-dark(#1f9d55,#4cc38a);--prog:light-dark(#2563eb,#6ea1f7);--pend:light-dark(#b5b5b5,#5d5d62);--warn:light-dark(#ea7c0c,#fb9a3c);
-  --c-done:light-dark(#15803d,#6fd3a0);--c-done-bg:light-dark(#e6f5ec,#16291f);--c-prog:light-dark(#1d4ed8,#8db6fa);--c-prog-bg:light-dark(#e8effd,#16213a);
-  --c-pend:light-dark(#b45309,#fdba74);--c-pend-bg:light-dark(#fff1e0,#33210f);--tick:light-dark(#fff,#111112)}
+  --bg:light-dark(#fff,#111112);--text:light-dark(#111,#ececec);--sub:light-dark(#555,#b5b5b5);--muted:light-dark(#6b6b6b,#9a9aa0);
+  --line:light-dark(#ececec,#272729);--prog:light-dark(#2563eb,#6ea1f7);--pend:light-dark(#767676,#8a8a8f);
+  --c-done:light-dark(#166534,#6fd3a0);--c-done-bg:light-dark(#e6f5ec,#16291f);--c-prog:light-dark(#1d4ed8,#8db6fa);--c-prog-bg:light-dark(#e8effd,#16213a);
+  --c-pend:light-dark(#9a4408,#fdba74);--c-pend-bg:light-dark(#fff1e0,#33210f);--tick:light-dark(#fff,#111112)}
 :root[data-theme=light]{color-scheme:light}
 :root[data-theme=dark]{color-scheme:dark}
 *{box-sizing:border-box}
@@ -23,8 +23,8 @@ h1{font-size:22px;font-weight:600;letter-spacing:-.01em;margin:0}
 .task:last-child{border-bottom:1px solid var(--line)}
 .head{display:flex;align-items:flex-start;gap:12px;width:100%;padding:10px 0}
 .info{flex:1;min-width:0}
-.title{font-size:15px;line-height:1.3;font-weight:550}
-.dates{font-size:11px;color:var(--muted)}
+.title{font-size:15px;line-height:1.3;font-weight:600}
+.dates{font-size:12px;color:var(--muted)}
 
 .plus{width:18px;height:18px;border-radius:50%;border:1.5px solid var(--pend);position:relative;flex-shrink:0;margin-top:1px}
 .plus::before,.plus::after{content:"";position:absolute;left:50%;top:50%;background:var(--muted);transform:translate(-50%,-50%)}
@@ -34,11 +34,11 @@ h1{font-size:22px;font-weight:600;letter-spacing:-.01em;margin:0}
 .head{cursor:pointer}
 .edit{cursor:auto}
 
-.capsule,.stat{display:flex;align-items:center;gap:7px;width:120px;flex-shrink:0;padding-left:12px;font-weight:550}
+.capsule,.stat{display:flex;align-items:center;gap:7px;width:120px;flex-shrink:0;padding-left:12px;font-weight:600}
 .capsule{margin-top:-2px;padding-top:3px;padding-bottom:3px;border-radius:999px;font-size:12px}
-.stat{font-size:11.5px;color:var(--c)}
+.stat{font-size:12px;color:var(--c)}
 .capsule svg,.stat svg{width:14px;height:14px;flex-shrink:0}
-.completed{--c:var(--done)}.in-progress{--c:var(--prog)}.pending{--c:var(--warn)}
+.completed{--c:var(--c-done)}.in-progress{--c:var(--c-prog)}.pending{--c:var(--c-pend)}
 .capsule.completed{color:var(--c-done);background:var(--c-done-bg)}
 .capsule.in-progress{color:var(--c-prog);background:var(--c-prog-bg)}
 .capsule.pending{color:var(--c-pend);background:var(--c-pend-bg)}
@@ -61,7 +61,7 @@ button.stat:hover{opacity:.7}
 .act{color:var(--muted);padding:4px;line-height:0}
 
 .newtask{display:flex;align-items:center;gap:12px;padding:10px 0;border-top:1px solid var(--line)}
-.newtask input[name=n]{flex:1;font-weight:550}
+.newtask input[name=n]{flex:1;font-weight:600}
 .newtask input[name=d]{font-size:13px;color:var(--muted)}
 
 .more{display:flex;align-items:center;justify-content:center;position:relative;margin:-9px auto 0;width:16px;height:18px;background:var(--bg);color:var(--pend);line-height:0}
@@ -69,6 +69,7 @@ button.stat:hover{opacity:.7}
 .more[hidden]{display:none}
 
 .arch{margin-top:48px}
+.arch+.arch{margin-top:12px}
 .arch-head{display:flex;align-items:center;gap:6px;padding-bottom:10px;font-size:12px;font-weight:400;color:var(--pend)}
 .arch-head:hover{color:var(--muted)}
 .arch-head svg{transition:transform .15s}
@@ -95,8 +96,32 @@ button.stat:hover{opacity:.7}
 .sub:hover .mv,.mv:focus-within{opacity:1}
 @media(hover:none){.mv{opacity:.6}}
 .edit{display:flex;gap:8px;align-items:center}
-.edit input[name=n]{flex:1;min-width:0;font-weight:550}
+.edit input[name=n]{flex:1;min-width:0;font-weight:600}
 .edit input[name=d]{font-size:12px;color:var(--muted)}
 .sedit{flex:1;min-width:0}
 .sedit input{width:100%;font-size:13px}
 .sub .label[data-a]{cursor:text}
+
+/* Phones & tablets: bigger touch targets, no iOS focus-zoom, visible "Add subtask" */
+.title,.sub .label{overflow-wrap:anywhere}
+@media(max-width:520px){
+  main{padding-left:16px;padding-right:16px}
+  .top{align-items:center}
+  h1{font-size:20px}
+  .capsule,.stat{width:108px}
+}
+@media(hover:none){
+  .subnew{opacity:1}
+  .subnew input{border-bottom-color:var(--line)}
+}
+@media(pointer:coarse){
+  main input{font-size:16px!important}   /* <16px makes iOS Safari zoom on focus */
+  .subs{padding-right:36px}
+  .sub{padding:12px 0}
+  .stat{padding-top:10px;padding-bottom:10px;margin:-10px 0}
+  .del{right:-36px;padding:12px 11px}
+  .mv{left:-30px}
+  .mvb{display:grid;place-items:center;width:28px;height:22px}
+  .more::after{content:"";position:absolute;inset:-12px -16px}
+  .arch-head{padding:12px 0}
+}
