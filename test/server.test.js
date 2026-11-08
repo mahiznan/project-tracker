@@ -58,7 +58,7 @@ test("wrong method on tasks.json is 405", async () => {
 });
 
 test("serves the app shell and assets", async () => {
-  for (const [p, type] of [["/", "text/html"], ["/styles.css", "text/css"], ["/app.js", "text/javascript"]]) {
+  for (const [p, type] of [["/", "text/html"], ["/styles.css", "text/css"], ["/app.js", "text/javascript"], ["/bg.svg", "image/svg+xml"]]) {
     const res = await fetch(base + p);
     assert.equal(res.status, 200, p);
     assert.ok(res.headers.get("content-type").startsWith(type), p);

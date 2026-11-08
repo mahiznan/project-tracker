@@ -1,9 +1,9 @@
 const http = require("http"), fs = require("fs"), path = require("path");
 
 const MAX = 1024 * 1024;
-const FILES = { "/": "index.html", "/index.html": "index.html", "/styles.css": "styles.css", "/app.js": "app.js" };
+const FILES = { "/": "index.html", "/index.html": "index.html", "/styles.css": "styles.css", "/app.js": "app.js", "/bg.svg": "bg.svg" };
 const TYPES = { ".html": "text/html; charset=utf-8", ".css": "text/css; charset=utf-8",
-                ".js": "text/javascript; charset=utf-8", ".json": "application/json; charset=utf-8" };
+                ".js": "text/javascript; charset=utf-8", ".svg": "image/svg+xml", ".json": "application/json; charset=utf-8" };
 
 function send(res, code, body = "", type = "text/plain; charset=utf-8") {
   res.writeHead(code, { "Content-Type": type, "Cache-Control": "no-store" });

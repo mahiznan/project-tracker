@@ -1,12 +1,15 @@
 :root{color-scheme:light dark;
-  --bg:light-dark(#fff,#111112);--text:light-dark(#111,#ececec);--sub:light-dark(#555,#b5b5b5);--muted:light-dark(#6b6b6b,#9a9aa0);
-  --line:light-dark(#ececec,#272729);--prog:light-dark(#2563eb,#6ea1f7);--pend:light-dark(#767676,#8a8a8f);
+  --bg:light-dark(#efeae2,#0b141a);--text:light-dark(#111,#ececec);--sub:light-dark(#444,#b5b5b5);--muted:light-dark(#575757,#9a9aa0);
+  --line:light-dark(#d6d0c4,#222d34);--prog:light-dark(#2563eb,#6ea1f7);--pend:light-dark(#616161,#93939a);
   --c-done:light-dark(#166534,#6fd3a0);--c-done-bg:light-dark(#e6f5ec,#16291f);--c-prog:light-dark(#1d4ed8,#8db6fa);--c-prog-bg:light-dark(#e8effd,#16213a);
-  --c-pend:light-dark(#9a4408,#fdba74);--c-pend-bg:light-dark(#fff1e0,#33210f);--tick:light-dark(#fff,#111112)}
+  --c-pend:light-dark(#9a4408,#fdba74);--c-pend-bg:light-dark(#fff1e0,#33210f);--tick:light-dark(#fff,#0b141a);--doodle:light-dark(#000,#fff)}
 :root[data-theme=light]{color-scheme:light}
 :root[data-theme=dark]{color-scheme:dark}
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--text);font:15px/1.5 Avenir,"Avenir Next","Nunito Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+/* WhatsApp-style wallpaper: bg.svg tiled as a faint mask, recoloured per theme */
+body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;background:var(--doodle);opacity:.05;
+  -webkit-mask:url(bg.svg) 0 0/412px auto repeat;mask:url(bg.svg) 0 0/412px auto repeat}
 main{max-width:680px;margin:0 auto;padding:48px 24px 64px}
 button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer;text-align:left}
 input{font:inherit;color:inherit;background:none;border:0;border-bottom:1px solid var(--line);outline:0;padding:2px 0}
@@ -78,7 +81,7 @@ button.stat:hover{opacity:.7}
 .arch .title{color:var(--sub)}
 .empty{color:var(--pend);font-size:13px}
 @media(max-width:520px){main{padding-top:40px}}
-.note{font-size:12px;font-weight:500;color:light-dark(#c2410c,#fb923c);margin-left:8px}
+.note{font-size:12px;font-weight:500;color:light-dark(#a8330a,#fb923c);margin-left:8px}
 @keyframes hop{0%,55%,100%{transform:translateY(0)}25%{transform:translateY(-2.2px)}}
 .jd{animation:hop 1.1s ease-in-out infinite}
 .jd:nth-child(2){animation-delay:.15s}

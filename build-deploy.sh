@@ -3,5 +3,5 @@
 set -e
 cd "$(dirname "$0")"
 rm -rf deploy && mkdir deploy
-cp index.html app.js styles.css tasks.php .htaccess deploy/
+cp index.html app.js styles.css bg.svg tasks.php .htaccess deploy/
 echo "Upload the contents of ./deploy to your site folder:"; ls -A deploy
